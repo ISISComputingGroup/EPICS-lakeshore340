@@ -1,0 +1,28 @@
+record(ai, "$(P)$(CHAN):TEMP") {
+    field(DESC, "Temperature Sensor $(CHAN)")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getTemp$(CHAN) $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:$(CHAN):TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ai, "$(P)$(CHAN):RDG") {
+    field(DESC, "Measurement Sensor $(CHAN)")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRdg$(CHAN) $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:$(CHAN):RDG")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:$(CHAN):RDG"){}
+record(ao, "$(P)SIM:$(CHAN):TEMP"){}

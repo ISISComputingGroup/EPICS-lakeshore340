@@ -1,0 +1,112 @@
+record(ai, "$(P)A:TEMP") {
+    field(DESC, "Temperature Sensor A")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getTempA $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:A:TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ai, "$(P)A:RDG") {
+    field(DESC, "Measurement Sensor A")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRdgA $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:A:RDG")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:A:RDG"){}
+record(ao, "$(P)SIM:A:TEMP"){}
+record(ai, "$(P)B:TEMP") {
+    field(DESC, "Temperature Sensor B")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getTempB $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:B:TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ai, "$(P)B:RDG") {
+    field(DESC, "Measurement Sensor B")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRdgB $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:B:RDG")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:B:RDG"){}
+record(ao, "$(P)SIM:B:TEMP"){}
+record(ai, "$(P)C:TEMP") {
+    field(DESC, "Temperature Sensor C")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getTempC $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:C:TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ai, "$(P)C:RDG") {
+    field(DESC, "Measurement Sensor C")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRdgC $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:C:RDG")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:C:RDG"){}
+record(ao, "$(P)SIM:C:TEMP"){}
+record(ai, "$(P)D:TEMP") {
+    field(DESC, "Temperature Sensor D")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getTempD $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:D:TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ai, "$(P)D:RDG") {
+    field(DESC, "Measurement Sensor D")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRdgD $(PORT)")
+    field(SCAN, "1 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:D:RDG")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:D:RDG"){}
+record(ao, "$(P)SIM:D:TEMP"){}
