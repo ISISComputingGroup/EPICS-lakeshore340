@@ -17,7 +17,7 @@ record(ai, "$(P)A:RDG") {
     field(INP, "@Lakeshore340.proto getRdgA $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
-    field(EGU, "K")
+    field(EGU, "")
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:A:RDG")
@@ -45,7 +45,7 @@ record(ai, "$(P)B:RDG") {
     field(INP, "@Lakeshore340.proto getRdgB $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
-    field(EGU, "K")
+    field(EGU, "")
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:B:RDG")
@@ -73,7 +73,7 @@ record(ai, "$(P)C:RDG") {
     field(INP, "@Lakeshore340.proto getRdgC $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
-    field(EGU, "K")
+    field(EGU, "")
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:C:RDG")
@@ -101,7 +101,7 @@ record(ai, "$(P)D:RDG") {
     field(INP, "@Lakeshore340.proto getRdgD $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
-    field(EGU, "K")
+    field(EGU, "")
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:D:RDG")

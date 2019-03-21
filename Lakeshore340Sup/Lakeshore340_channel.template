@@ -17,7 +17,7 @@ record(ai, "$(P)$(CHAN):RDG") {
     field(INP, "@Lakeshore340.proto getRdg$(CHAN) $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
-    field(EGU, "K")
+    field(EGU, "")
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:$(CHAN):RDG")

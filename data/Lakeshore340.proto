@@ -115,3 +115,12 @@ getOutput {
   out "HTR?";
   in "%e";
 }
+
+getRange {
+  out "RANGE?";
+  in "%d";
+}
+
+setRange {
+  out "RANGE %d";
+}

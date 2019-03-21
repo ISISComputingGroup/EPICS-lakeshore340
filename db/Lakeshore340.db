@@ -36,6 +36,13 @@ record(ao, "$(P)A:TEMP:SP") {
     field(FLNK, "$(P)A:TEMP:SP:RBV")
 }
 
+# To allow setting any temperature from genie_python to set TSet.
+# May not always make perfect sense, but neater than forcing one in particular
+# or forcing a separate TSet block.
+alias("$(P)A:TEMP:SP", "$(P)B:TEMP:SP")
+alias("$(P)A:TEMP:SP", "$(P)C:TEMP:SP")
+alias("$(P)A:TEMP:SP", "$(P)D:TEMP:SP")
+
 record(ai, "$(P)A:TEMP:SP:RBV") {
     field(DESC, "TSET readback Sensor A")
     field(DTYP, "stream")
@@ -48,6 +55,10 @@ record(ai, "$(P)A:TEMP:SP:RBV") {
     field(SIOL, "$(P)SIM:A:TEMP")
     field(SDIS, "$(P)DISABLE")
 }
+
+alias("$(P)A:TEMP:SP:RBV", "$(P)B:TEMP:SP:RBV")
+alias("$(P)A:TEMP:SP:RBV", "$(P)C:TEMP:SP:RBV")
+alias("$(P)A:TEMP:SP:RBV", "$(P)D:TEMP:SP:RBV")
 
 
 # PID settings
@@ -270,3 +281,44 @@ record(ai, "$(P)OUTPUT") {
 }
 
 record(ao, "$(P)SIM:OUTPUT"){}
+
+
+# Heater range
+
+
+record(mbbi, "$(P)RANGE") {
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRange $(PORT)")
+    field(SCAN, "5 second")
+    
+    field(ZRST, "0%")
+    field(ONST, "0.01%")
+    field(TWST, "0.1%")
+    field(THST, "1%")
+    field(FRST, "10%")
+    field(FVST, "100%")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RANGE")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbo, "$(P)RANGE:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setRange $(PORT)")
+    
+    field(ZRST, "0%")
+    field(ONST, "0.01%")
+    field(TWST, "0.1%")
+    field(THST, "1%")
+    field(FRST, "10%")
+    field(FVST, "100%")
+    
+    field(FLNK, "$(P)RANGE")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RANGE")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbo, "$(P)SIM:RANGE") {}
