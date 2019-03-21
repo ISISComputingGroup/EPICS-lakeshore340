@@ -9,6 +9,10 @@ record(ai, "$(P)A:TEMP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:A:TEMP")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+    info(alarm, "LKSH340")
 }
 
 record(ai, "$(P)A:RDG") {
@@ -22,6 +26,9 @@ record(ai, "$(P)A:RDG") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:A:RDG")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)SIM:A:RDG"){}
@@ -37,6 +44,10 @@ record(ai, "$(P)B:TEMP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:B:TEMP")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+    info(alarm, "LKSH340")
 }
 
 record(ai, "$(P)B:RDG") {
@@ -50,6 +61,9 @@ record(ai, "$(P)B:RDG") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:B:RDG")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)SIM:B:RDG"){}
@@ -65,6 +79,10 @@ record(ai, "$(P)C:TEMP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:C:TEMP")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+    info(alarm, "LKSH340")
 }
 
 record(ai, "$(P)C:RDG") {
@@ -78,6 +96,9 @@ record(ai, "$(P)C:RDG") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:C:RDG")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)SIM:C:RDG"){}
@@ -93,6 +114,10 @@ record(ai, "$(P)D:TEMP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:D:TEMP")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+    info(alarm, "LKSH340")
 }
 
 record(ai, "$(P)D:RDG") {
@@ -106,6 +131,9 @@ record(ai, "$(P)D:RDG") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:D:RDG")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)SIM:D:RDG"){}

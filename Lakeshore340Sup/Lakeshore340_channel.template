@@ -9,6 +9,10 @@ record(ai, "$(P)$(CHAN):TEMP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:$(CHAN):TEMP")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+    info(alarm, "LKSH340")
 }
 
 record(ai, "$(P)$(CHAN):RDG") {
@@ -22,6 +26,9 @@ record(ai, "$(P)$(CHAN):RDG") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:$(CHAN):RDG")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)SIM:$(CHAN):RDG"){}

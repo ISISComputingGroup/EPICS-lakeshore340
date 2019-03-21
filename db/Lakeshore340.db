@@ -23,7 +23,7 @@ record(bo, "$(P)DISABLE")
 
 
 record(ao, "$(P)A:TEMP:SP") {
-    field(DESC, "TSET Sensor A")
+    field(DESC, "Temperature setpoint")
     field(DTYP, "stream")
     field(OUT, "@Lakeshore340.proto setTempA $(PORT)")
     field(PREC, "5")
@@ -44,7 +44,7 @@ alias("$(P)A:TEMP:SP", "$(P)C:TEMP:SP")
 alias("$(P)A:TEMP:SP", "$(P)D:TEMP:SP")
 
 record(ai, "$(P)A:TEMP:SP:RBV") {
-    field(DESC, "TSET readback Sensor A")
+    field(DESC, "Temperature setpoint readback")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getSetTempA $(PORT)")
     field(SCAN, "5 second")
@@ -75,6 +75,9 @@ record(ai, "$(P)P") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:P")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)P:SP") {
@@ -102,6 +105,9 @@ record(ai, "$(P)I") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:I")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)I:SP") {
@@ -128,6 +134,9 @@ record(longin, "$(P)D") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:D")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
 }
 
 record(longout, "$(P)D:SP") {
@@ -148,6 +157,7 @@ record(longout, "$(P)SIM:D"){}
 
 
 record(mbbi, "$(P)PIDMODE") {
+    field(DESC, "PID mode")
     field(SCAN, "5 second")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getPidMode $(PORT)")
@@ -168,6 +178,9 @@ record(mbbi, "$(P)PIDMODE") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:PIDMODE")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
 }
 
 record(mbbo, "$(P)PIDMODE:SP") {
@@ -208,6 +221,7 @@ record(longin, "$(P)_SENSORUNITS") {}
 record(longin, "$(P)_POWERUPENABLE") {}
 
 record(bi, "$(P)LOOP") {
+    field(DESC, "PID loop on/off")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getLoop($(P)) $(PORT)")
     field(SCAN, "5 second")
@@ -217,6 +231,9 @@ record(bi, "$(P)LOOP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:LOOP")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
 }
 
 record(bo, "$(P)LOOP:SP") {
@@ -238,6 +255,7 @@ record(bo, "$(P)SIM:LOOP") {}
 
 
 record(ai, "$(P)TEMP:MAX") {
+    field(DESC, "TSet limit")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getMaxTemp $(PORT)")
     field(SCAN, "5 second")
@@ -247,6 +265,9 @@ record(ai, "$(P)TEMP:MAX") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:TEMP:MAX")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)TEMP:MAX:SP") {
@@ -269,6 +290,7 @@ record(ao, "$(P)SIM:TEMP:MAX"){}
 
 
 record(ai, "$(P)OUTPUT") {
+    field(DESC, "Heater output")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getOutput $(PORT)")
     field(SCAN, "1 second")
@@ -278,6 +300,9 @@ record(ai, "$(P)OUTPUT") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OUTPUT")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ao, "$(P)SIM:OUTPUT"){}
@@ -287,6 +312,7 @@ record(ao, "$(P)SIM:OUTPUT"){}
 
 
 record(mbbi, "$(P)RANGE") {
+    field(DESC, "Heater range")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getRange $(PORT)")
     field(SCAN, "5 second")
@@ -301,6 +327,9 @@ record(mbbi, "$(P)RANGE") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RANGE")
     field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(mbbo, "$(P)RANGE:SP") {
