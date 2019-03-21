@@ -32,13 +32,15 @@ record(ao, "$(P)A:TEMP:SP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:A:TEMP")
     field(SDIS, "$(P)DISABLE")
+    
+    field(FLNK, "$(P)A:TEMP:SP:RBV")
 }
 
 record(ai, "$(P)A:TEMP:SP:RBV") {
     field(DESC, "TSET readback Sensor A")
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getSetTempA $(PORT)")
-    field(SCAN, "1 second")
+    field(SCAN, "5 second")
     field(PREC, "5")
     field(EGU, "K")
     
@@ -131,3 +133,140 @@ record(longout, "$(P)D:SP") {
 record(longout, "$(P)SIM:D"){}
 
 
+# PID mode
+
+
+record(mbbi, "$(P)PIDMODE") {
+    field(SCAN, "5 second")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getPidMode $(PORT)")
+    
+    field(ZRST, "Manual PID")
+    field(ZRVL, "1")
+    field(ONST, "Zone")
+    field(ONVL, "2")
+    field(TWST, "Open Loop")
+    field(TWVL, "3")
+    field(THST, "Autotune PID")
+    field(THVL, "4")
+    field(FRST, "Autotune PI")
+    field(FRVL, "5")
+    field(FVST, "Autotune P")
+    field(FVVL, "6")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:PIDMODE")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbo, "$(P)PIDMODE:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setPidMode $(PORT)")
+    
+    field(ZRST, "Manual PID")
+    field(ZRVL, "1")
+    field(ONST, "Zone")
+    field(ONVL, "2")
+    field(TWST, "Open Loop")
+    field(TWVL, "3")
+    field(THST, "Autotune PID")
+    field(THVL, "4")
+    field(FRST, "Autotune PI")
+    field(FRVL, "5")
+    field(FVST, "Autotune P")
+    field(FVVL, "6")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:PIDMODE")
+    field(SDIS, "$(P)DISABLE")
+    
+    field(FLNK, "$(P)PIDMODE")
+}
+
+record(mbbo, "$(P)SIM:PIDMODE") {}
+
+
+# Control loop on/off
+
+record(bi, "$(P)_CONTROLINPUT") {
+    field(ZNAM, "A")
+    field(ONAM, "B")
+}
+
+record(longin, "$(P)_SENSORUNITS") {}
+record(longin, "$(P)_POWERUPENABLE") {}
+
+record(bi, "$(P)LOOP") {
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getLoop($(P)) $(PORT)")
+    field(SCAN, "5 second")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:LOOP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(bo, "$(P)LOOP:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setLoop($(P)) $(PORT)")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(FLNK, "$(P)LOOP")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:LOOP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(bo, "$(P)SIM:LOOP") {}
+
+
+# Max setpoint
+
+
+record(ai, "$(P)TEMP:MAX") {
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getMaxTemp $(PORT)")
+    field(SCAN, "5 second")
+    field(EGU, "K")
+    field(PREC, "5")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:TEMP:MAX")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)TEMP:MAX:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setMaxTemp $(PORT)")
+    field(EGU, "K")
+    field(PREC, "5")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:TEMP:MAX")
+    field(SDIS, "$(P)DISABLE")
+    
+    field(FLNK, "$(P)TEMP:MAX")
+}
+
+record(ao, "$(P)SIM:TEMP:MAX"){}
+
+
+# Heater output
+
+
+record(ai, "$(P)OUTPUT") {
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getOutput $(PORT)")
+    field(SCAN, "1 second")
+    field(EGU, "%")
+    field(PREC, "2")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OUTPUT")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:OUTPUT"){}
