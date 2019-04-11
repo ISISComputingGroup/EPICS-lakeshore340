@@ -1,0 +1,126 @@
+Terminator = LF;
+
+getTempA {
+  out "KRDG? 0";
+  in "%e";
+}
+
+setTempA {
+  out "SETP 1,%f";
+}
+
+getSetTempA {
+  out "SETP? 1";
+  in "%e";
+}
+
+getTempB {
+  out "KRDG? 1";
+  in "%e";
+}
+
+getTempC {
+  out "KRDG? 2";
+  in "%e";
+}
+
+getTempD {
+  out "KRDG? 3";
+  in "%e";
+}
+
+getRdgA {
+  out "SRDG? 0";
+  in "%e";
+}
+
+getRdgB {
+  out "SRDG? 1";
+  in "%e";
+}
+
+getRdgC {
+  out "SRDG? 2";
+  in "%e";
+}
+
+getRdgD {
+  out "SRDG? 3";
+  in "%e";
+}
+
+setP {
+  out "PID 1,%f,%(\$1I)f,%(\$1D)d";
+  out "PID? 1";
+  in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
+}
+
+getP {
+  out "PID? 1";
+  in "%f,%*f,%*d";
+}
+
+setI {
+  out "PID 1,%(\$1P)f,%f,%(\$1D)d";
+  out "PID? 1";
+  in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
+}
+
+getI {
+  out "PID? 1";
+  in "%*f,%f,%*d";
+}
+
+setD {
+  out "PID 1,%(\$1P)f,%(\$1I)f,%d";
+  out "PID? 1";
+  in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
+}
+
+getD {
+  out "PID? 1";
+  in "%*f,%*f,%d";
+}
+
+setPidMode {
+  out "CMODE 1,%d";
+}
+
+getPidMode {
+  out "CMODE? 1";
+  in "%d";
+}
+
+setLoop {
+  out "CSET? 1";
+  in "%(\$1_CONTROLINPUT){A|B},%(\$1_SENSORUNITS)d,%*{0|1},%(\$1_POWERUPENABLE)d";
+  out "CSET 1,%(\$1_CONTROLINPUT){A|B},%(\$1_SENSORUNITS)d,%{0|1},%(\$1_POWERUPENABLE)d";
+}
+
+getLoop {
+  out "CSET? 1";
+  in "%(\$1_CONTROLINPUT){A|B},%(\$1_SENSORUNITS)d,%{0|1},%(\$1_POWERUPENABLE)d";
+}
+
+setMaxTemp {
+  out "CLIMIT 1,%f";
+}
+
+getMaxTemp {
+  out "CLIMIT? 1";
+  in "%e,%*e,%*e,%*e,%*e";
+}
+
+getOutput {
+  out "HTR?";
+  in "%e";
+}
+
+getRange {
+  out "RANGE?";
+  in "%d";
+}
+
+setRange {
+  out "RANGE %d";
+}

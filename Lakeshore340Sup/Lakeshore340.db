@@ -1,0 +1,353 @@
+record(bo, "$(P)SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+    field(PINI, "YES")
+}
+
+record(bo, "$(P)DISABLE")
+{
+    field(DESC, "Disable comms")
+    field(PINI, "YES")
+    field(VAL, "$(DISABLE=0)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "COMMS ENABLED")
+    field(ONAM, "COMMS DISABLED")
+}
+
+
+# Temperature setpoint
+
+
+record(ao, "$(P)A:TEMP:SP") {
+    field(DESC, "Temperature setpoint")
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setTempA $(PORT)")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:A:TEMP")
+    field(SDIS, "$(P)DISABLE")
+    
+    field(FLNK, "$(P)A:TEMP:SP:RBV")
+}
+
+# To allow setting any temperature from genie_python to set TSet.
+# May not always make perfect sense, but neater than forcing one in particular
+# or forcing a separate TSet block.
+alias("$(P)A:TEMP:SP", "$(P)B:TEMP:SP")
+alias("$(P)A:TEMP:SP", "$(P)C:TEMP:SP")
+alias("$(P)A:TEMP:SP", "$(P)D:TEMP:SP")
+
+record(ai, "$(P)A:TEMP:SP:RBV") {
+    field(DESC, "Temperature setpoint readback")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getSetTempA $(PORT)")
+    field(SCAN, "5 second")
+    field(PREC, "5")
+    field(EGU, "K")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:A:TEMP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+alias("$(P)A:TEMP:SP:RBV", "$(P)B:TEMP:SP:RBV")
+alias("$(P)A:TEMP:SP:RBV", "$(P)C:TEMP:SP:RBV")
+alias("$(P)A:TEMP:SP:RBV", "$(P)D:TEMP:SP:RBV")
+
+
+# PID settings
+
+
+record(ai, "$(P)P") {
+    field(DESC, "PID Proportional")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getP $(PORT)")
+    field(SCAN, "5 second")
+    field(PREC, "3")
+    field(EGU, "")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:P")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(ao, "$(P)P:SP") {
+    field(DESC, "PID Proportional")
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setP($(P)) $(PORT)")
+    field(PREC, "3")
+    field(EGU, "")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:P")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:P"){}
+
+record(ai, "$(P)I") {
+    field(DESC, "PID Integral")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getI $(PORT)")
+    field(SCAN, "5 second")
+    field(PREC, "3")
+    field(EGU, "")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:I")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(ao, "$(P)I:SP") {
+    field(DESC, "PID Integral")
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setI($(P)) $(PORT)")
+    field(PREC, "3")
+    field(EGU, "")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:I")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(ao, "$(P)SIM:I"){}
+
+record(longin, "$(P)D") {
+    field(DESC, "PID Derivative")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getD $(PORT)")
+    field(SCAN, "5 second")
+    field(EGU, "")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:D")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(longout, "$(P)D:SP") {
+    field(DESC, "PID Derivative")
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setD($(P)) $(PORT)")
+    field(EGU, "")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:D")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(longout, "$(P)SIM:D"){}
+
+
+# PID mode
+
+
+record(mbbi, "$(P)PIDMODE") {
+    field(DESC, "PID mode")
+    field(SCAN, "5 second")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getPidMode $(PORT)")
+    
+    field(ZRST, "Manual PID")
+    field(ZRVL, "1")
+    field(ONST, "Zone")
+    field(ONVL, "2")
+    field(TWST, "Open Loop")
+    field(TWVL, "3")
+    field(THST, "Autotune PID")
+    field(THVL, "4")
+    field(FRST, "Autotune PI")
+    field(FRVL, "5")
+    field(FVST, "Autotune P")
+    field(FVVL, "6")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:PIDMODE")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(mbbo, "$(P)PIDMODE:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setPidMode $(PORT)")
+    
+    field(ZRST, "Manual PID")
+    field(ZRVL, "1")
+    field(ONST, "Zone")
+    field(ONVL, "2")
+    field(TWST, "Open Loop")
+    field(TWVL, "3")
+    field(THST, "Autotune PID")
+    field(THVL, "4")
+    field(FRST, "Autotune PI")
+    field(FRVL, "5")
+    field(FVST, "Autotune P")
+    field(FVVL, "6")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:PIDMODE")
+    field(SDIS, "$(P)DISABLE")
+    
+    field(FLNK, "$(P)PIDMODE")
+}
+
+record(mbbo, "$(P)SIM:PIDMODE") {}
+
+
+# Control loop on/off
+
+record(bi, "$(P)_CONTROLINPUT") {
+    field(ZNAM, "A")
+    field(ONAM, "B")
+}
+
+record(longin, "$(P)_SENSORUNITS") {}
+record(longin, "$(P)_POWERUPENABLE") {}
+
+record(bi, "$(P)LOOP") {
+    field(DESC, "PID loop on/off")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getLoop($(P)) $(PORT)")
+    field(SCAN, "5 second")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:LOOP")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(bo, "$(P)LOOP:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setLoop($(P)) $(PORT)")
+    field(ZNAM, "Off")
+    field(ONAM, "On")
+    field(FLNK, "$(P)LOOP")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:LOOP")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(bo, "$(P)SIM:LOOP") {}
+
+
+# Max setpoint
+
+
+record(ai, "$(P)TEMP:MAX") {
+    field(DESC, "TSet limit")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getMaxTemp $(PORT)")
+    field(SCAN, "5 second")
+    field(EGU, "K")
+    field(PREC, "5")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:TEMP:MAX")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "MEDIUM")
+    info(archive, "VAL")
+}
+
+record(ao, "$(P)TEMP:MAX:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setMaxTemp $(PORT)")
+    field(EGU, "K")
+    field(PREC, "5")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:TEMP:MAX")
+    field(SDIS, "$(P)DISABLE")
+    
+    field(FLNK, "$(P)TEMP:MAX")
+}
+
+record(ao, "$(P)SIM:TEMP:MAX"){}
+
+
+# Heater output
+
+
+record(ai, "$(P)OUTPUT") {
+    field(DESC, "Heater output")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getOutput $(PORT)")
+    field(SCAN, "1 second")
+    field(EGU, "%")
+    field(PREC, "2")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OUTPUT")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(ao, "$(P)SIM:OUTPUT"){}
+
+
+# Heater range
+
+
+record(mbbi, "$(P)RANGE") {
+    field(DESC, "Heater range")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getRange $(PORT)")
+    field(SCAN, "5 second")
+    
+    field(ZRST, "0%")
+    field(ONST, "0.01%")
+    field(TWST, "0.1%")
+    field(THST, "1%")
+    field(FRST, "10%")
+    field(FVST, "100%")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RANGE")
+    field(SDIS, "$(P)DISABLE")
+    
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(mbbo, "$(P)RANGE:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setRange $(PORT)")
+    
+    field(ZRST, "0%")
+    field(ONST, "0.01%")
+    field(TWST, "0.1%")
+    field(THST, "1%")
+    field(FRST, "10%")
+    field(FVST, "100%")
+    
+    field(FLNK, "$(P)RANGE")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RANGE")
+    field(SDIS, "$(P)DISABLE")
+}
+
+record(mbbo, "$(P)SIM:RANGE") {}
