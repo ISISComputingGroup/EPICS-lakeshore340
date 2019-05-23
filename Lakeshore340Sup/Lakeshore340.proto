@@ -1,4 +1,4 @@
-Terminator = LF;
+Terminator = CR LF;
 
 getTempA {
   out "KRDG? 0";
