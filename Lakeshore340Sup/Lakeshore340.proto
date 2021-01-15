@@ -124,3 +124,12 @@ getRange {
 setRange {
   out "RANGE %d";
 }
+
+getExA {
+  out "INTYPE? A";
+  in "%d";
+}
+
+setExA {
+  out "INTYPE A, 1, , , , %d";
+}

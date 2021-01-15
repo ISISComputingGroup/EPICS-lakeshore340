@@ -351,3 +351,63 @@ record(mbbo, "$(P)RANGE:SP") {
 }
 
 record(mbbo, "$(P)SIM:RANGE") {}
+
+# Excitation
+
+record(mbbi, "$(P)EXCITATIONA") {
+    field(DESC, "Excitation Setting")
+    field(DTYP, "stream")
+    field(INP, "@Lakeshore340.proto getExA $(PORT)")
+    field(SCAN, "5 second")
+
+    field(ZRST, "Off")
+    field(ONST, "30 nA")
+    field(TWST, "100 nA")
+    field(THST, "300 nA")
+    field(FRST, "1 uA")
+    field(FVST, "3 uA")
+    field(SXST, "10 uA")
+    field(SVST, "30 uA")
+    field(EIST, "100 uA")
+    field(NIST, "300 uA")
+    field(TEST, "1 mA")
+    field(ELST, "10 mV")
+    field(TVST, "1 mV")
+
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:EXCITATIONA")
+    field(SDIS, "$(P)DISABLE")
+
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(mbbo, "$(P)EXCITATIONA:SP") {
+    field(DTYP, "stream")
+    field(OUT, "@Lakeshore340.proto setExA $(PORT)")
+
+    field(ZRST, "Off")
+    field(ONST, "30 nA")
+    field(TWST, "100 nA")
+    field(THST, "300 nA")
+    field(FRST, "1 uA")
+    field(FVST, "3 uA")
+    field(SXST, "10 uA")
+    field(SVST, "30 uA")
+    field(EIST, "100 uA")
+    field(NIST, "300 uA")
+    field(TEST, "1 mA")
+    field(ELST, "10 mV")
+    field(TVST, "1 mV")
+
+    field(FLNK, "$(P)EXCITATIONA")
+
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:EXCITATIONA")
+    field(SDIS, "$(P)DISABLE")
+
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(mbbo, "$(P)SIM:EXCITATIONA"){}
