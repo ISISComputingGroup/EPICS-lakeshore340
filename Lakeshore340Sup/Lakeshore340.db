@@ -359,6 +359,7 @@ record(mbbi, "$(P)EXCITATIONA") {
     field(DTYP, "stream")
     field(INP, "@Lakeshore340.proto getExA $(PORT)")
     field(SCAN, "5 second")
+    field(PINI, "YES")
 
     field(ZRST, "Off")
     field(ONST, "30 nA")
@@ -411,3 +412,10 @@ record(mbbo, "$(P)EXCITATIONA:SP") {
 }
 
 record(mbbo, "$(P)SIM:EXCITATIONA"){}
+
+record(waveform, "$(P)THRESHOLDS:FILE")
+{
+   field(FTVL, "CHAR")
+   field(DESC, "Thresholds file") # VAL is set from dbpf in st-common.cmd
+   field(NELM, "100")
+}
