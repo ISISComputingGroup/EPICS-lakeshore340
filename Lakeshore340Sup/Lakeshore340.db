@@ -440,11 +440,9 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     # Excitation Output
     field(OUTA, "$(P)THRESHOLDS:EXCITATION")
     field(FTVA, "ENUM")
-    field(VALA, "1")
     # Temperature Output
     field(OUTB, "$(P)THRESHOLDS:TEMP")
     field(FTVB, "DOUBLE")
-    field(VALB, "2")
 }
 
 record(mbbo, "$(P)THRESHOLDS:EXCITATION") {

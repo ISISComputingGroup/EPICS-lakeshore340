@@ -13,7 +13,7 @@ DBD += Lakeshore340.dbd
 Lakeshore340_DBD += asyn.dbd
 Lakeshore340_DBD += aSubFunctions.dbd
 
-Lakeshore340_SRCS += lakeshore340excitations.cpp
+Lakeshore340_SRCS += lakeshore340excitations.c
 
 Lakeshore340_LIBS += $(EPICS_BASE_IOC_LIBS)
 Lakeshore340_LIBS += asyn utilities gsl
