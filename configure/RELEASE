@@ -10,3 +10,4 @@ ONCRPC=$(SUPPORT)/oncrpc/master
 SNCSEQ=$(SUPPORT)/seq/master
 ASUBFUNCTIONS=$(SUPPORT)/asubFunctions/master
 GSL=$(SUPPORT)/gsl/master
+GTEST=$(SUPPORT)/googletest/master
