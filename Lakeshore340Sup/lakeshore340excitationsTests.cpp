@@ -60,10 +60,4 @@ namespace {
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_EQ(tempExcitationPairValid(pair), false);
     }
-
-    TEST(LSK340ExctationTests, test_when_line_excitation_not_valid_then_function_returns_invalid_struct){
-        char *line = "120,invalid\r\n";
-        thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
-        ASSERT_EQ(tempExcitationPairValid(pair), false);
-    }
 }
