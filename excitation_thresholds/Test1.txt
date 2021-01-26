@@ -1,3 +1,3 @@
-Hello James
-It's WORKING
-IT'S WORKING
+20,30 nA
+15,1 mV
+18,100 nA
