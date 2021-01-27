@@ -5,28 +5,28 @@
 namespace {
 
     TEST(LSK340ExctationTests, test_when_excitation_val_in_range_then_pair_is_valid){
-        thresholdTempExcitationPair pair1 = {120, 0};
+        thresholdTempExcitationPair pair1 = {120.0, 0};
         ASSERT_TRUE(tempExcitationPairValid(pair1));
-        thresholdTempExcitationPair pair2 = {120, 12};
+        thresholdTempExcitationPair pair2 = {120.0, 12};
         ASSERT_TRUE(tempExcitationPairValid(pair2));
     }
 
     TEST(LSK340ExctationTests, test_when_excitation_val_not_in_range_then_pair_is_valid){
-        thresholdTempExcitationPair pair1 = {120, -1};
+        thresholdTempExcitationPair pair1 = {120.0, -1};
         ASSERT_FALSE(tempExcitationPairValid(pair1));
-        thresholdTempExcitationPair pair2 = {120, 13};
+        thresholdTempExcitationPair pair2 = {120.0, 13};
         ASSERT_FALSE(tempExcitationPairValid(pair2));
     }
 
     TEST(LSK340ExctationTests, test_when_temp_greater_than_int_min_then_pair_is_valid){
-        thresholdTempExcitationPair pair1 = {INT_MIN+1, 3};
+        thresholdTempExcitationPair pair1 = {DBL_MIN+1, 3};
         ASSERT_TRUE(tempExcitationPairValid(pair1));
-        thresholdTempExcitationPair pair2 = {INT_MAX, 3};
+        thresholdTempExcitationPair pair2 = {FLT_MAX, 3};
         ASSERT_TRUE(tempExcitationPairValid(pair2));
     }
 
     TEST(LSK340ExctationTests, test_when_temp_is_int_min_then_pair_is_invalid){
-        thresholdTempExcitationPair pair1 = {INT_MIN, 3};
+        thresholdTempExcitationPair pair1 = {DBL_MIN, 3};
         ASSERT_FALSE(tempExcitationPairValid(pair1));
     }
 
@@ -43,18 +43,18 @@ namespace {
     }
 
     TEST(LSK340ExctationTests, test_when_line_valid_with_newline_then_function_returns_valid_struct){
-        char *line = "120,30 nA\r\n";
+        char *line = "120.2,30 nA\r\n";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_EQ(pair.excitation, 1);
-        ASSERT_EQ(pair.temp, 120);
+        ASSERT_EQ(pair.temp, 120.2);
         ASSERT_TRUE(tempExcitationPairValid(pair));
     }
 
     TEST(LSK340ExctationTests, test_when_line_without_newline_valid_then_function_returns_valid_struct){
-        char *line = "120,30 nA";
+        char *line = "120.2,30 nA";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_EQ(pair.excitation, 1);
-        ASSERT_EQ(pair.temp, 120);
+        ASSERT_EQ(pair.temp, 120.2);
         ASSERT_TRUE(tempExcitationPairValid(pair));
     }
 
@@ -65,53 +65,53 @@ namespace {
     }
 
     TEST(LSK340ExctationTests, test_when_line_excitation_not_valid_then_function_returns_invalid_struct){
-        char *line = "120,invalid\r\n";
+        char *line = "120.2,invalid\r\n";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_FALSE(tempExcitationPairValid(pair));
     }
 
     TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_less_than_temp_sp_and_greater_than_old_temp_then_line_pair_returned) {
-        char *line = "120,30 nA";
-        int tempSp = 125;
-        thresholdTempExcitationPair oldPair = {118, 3};
+        char *line = "120.2,30 nA";
+        double tempSp = 125.3;
+        thresholdTempExcitationPair oldPair = {118.0, 3};
         thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
         ASSERT_EQ(newPair.excitation, 1);
-        ASSERT_EQ(newPair.temp, 120);
+        ASSERT_EQ(newPair.temp, 120.2);
     }
 
     TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_less_than_temp_sp_and_less_than_old_temp_then_old_pair_returned) {
         char *line = "120,30 nA";
-        int tempSp = 125;
-        thresholdTempExcitationPair oldPair = {122, 3};
+        double tempSp = 125.0;
+        thresholdTempExcitationPair oldPair = {122.0, 3};
         thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
         ASSERT_EQ(newPair.excitation, 3);
-        ASSERT_EQ(newPair.temp, 122);
+        ASSERT_EQ(newPair.temp, 122.0);
     }
 
     TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_equal_to_temp_sp_and_greater_than_old_temp_then_line_pair_returned) {
-        char *line = "125,30 nA";
-        int tempSp = 125;
-        thresholdTempExcitationPair oldPair = {118, 3};
+        char *line = "125.0,30 nA";
+        double tempSp = 125.0;
+        thresholdTempExcitationPair oldPair = {118.0, 3};
         thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
         ASSERT_EQ(newPair.excitation, 1);
-        ASSERT_EQ(newPair.temp, 125);
+        ASSERT_EQ(newPair.temp, 125.0);
     }
 
     TEST(LSK340ExctationTests, test_when_line_is_not_valid_and_contains_temp_less_than_temp_sp_and_greater_than_old_temp_then_old_pair_returned) {
-        char *line = "120,invalid";
-        int tempSp = 125;
-        thresholdTempExcitationPair oldPair = {118, 3};
+        char *line = "120.2,invalid";
+        double tempSp = 125.0;
+        thresholdTempExcitationPair oldPair = {118.0, 3};
         thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
         ASSERT_EQ(newPair.excitation, 3);
-        ASSERT_EQ(newPair.temp, 118);
+        ASSERT_EQ(newPair.temp, 118.0);
     }
 
     TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_greater_than_temp_sp_and_greater_than_old_temp_then_old_pair_returned) {
-        char *line = "126,30 nA";
-        int tempSp = 125;
-        thresholdTempExcitationPair oldPair = {118, 3};
+        char *line = "126.3,30 nA";
+        double tempSp = 125.0;
+        thresholdTempExcitationPair oldPair = {118.0, 3};
         thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
         ASSERT_EQ(newPair.excitation, 3);
-        ASSERT_EQ(newPair.temp, 118);
+        ASSERT_EQ(newPair.temp, 118.0);
     }
 }

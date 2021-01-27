@@ -32,8 +32,8 @@ record(ao, "$(P)A:TEMP:SP") {
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:A:TEMP")
     field(SDIS, "$(P)DISABLE")
-    
-    field(FLNK, "$(P)A:TEMP:SP:RBV")
+
+    field(FLNK, "$(P)THRESHOLDS:_CALC")
 }
 
 # To allow setting any temperature from genie_python to set TSet.
@@ -53,7 +53,7 @@ record(ai, "$(P)A:TEMP:SP:RBV") {
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:A:TEMP")
-    field(SDIS, "$(P)DISABLE")
+    field(SDIS, "$(P)DISABLE")    
 }
 
 alias("$(P)A:TEMP:SP:RBV", "$(P)B:TEMP:SP:RBV")
@@ -431,10 +431,10 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     field(NOA,  "200")
     # Temperature
     field(INPB, "$(P)A:TEMP")
-    field(FTB,  "CHAR")
+    field(FTB,  "DOUBLE")
     # Temperature Setpoint
     field(INPC, "$(P)A:TEMP:SP")
-    field(FTC,  "CHAR")
+    field(FTC,  "DOUBLE")
 
     # Outputs
     # Excitation Output
@@ -443,6 +443,8 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     # Temperature Output
     field(OUTB, "$(P)THRESHOLDS:TEMP")
     field(FTVB, "DOUBLE")
+
+    field(FLNK, "$(P)A:TEMP:SP:RBV")
 }
 
 record(mbbo, "$(P)THRESHOLDS:EXCITATION") {

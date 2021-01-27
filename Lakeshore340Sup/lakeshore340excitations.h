@@ -22,15 +22,15 @@ static excitationStringValuePair excitation_string_to_val_map[] = {
 #define NUM_OF_EXCITATION_PAIRS (sizeof(excitation_string_to_val_map)/sizeof(excitationStringValuePair))
 
 typedef struct {
-    int temp;
+    epicsFloat64 temp;
     int excitation;
 } thresholdTempExcitationPair;
 
 bool tempExcitationPairValid(thresholdTempExcitationPair pair);
 thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line);
 int getEnumFromString(char * enumAsString);
-thresholdTempExcitationPair getExcitationPairIfConditionsMatch(char *line, epicsInt32 tempSp, thresholdTempExcitationPair tempExcitationPair);
-thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsInt32 tempSp);
+thresholdTempExcitationPair getExcitationPairIfConditionsMatch(char *line, epicsFloat64 tempSp, thresholdTempExcitationPair tempExcitationPair);
+thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsFloat64 tempSp);
 
 #ifdef __cplusplus
 }
