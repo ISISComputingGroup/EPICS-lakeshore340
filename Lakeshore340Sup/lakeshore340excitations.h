@@ -1,3 +1,8 @@
+#include <registryFunction.h>
+#include <epicsExport.h>
+#include <aSubRecord.h>
+#include <errlog.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,6 +29,8 @@ typedef struct {
 bool tempExcitationPairValid(thresholdTempExcitationPair pair);
 thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line);
 int getEnumFromString(char * enumAsString);
+thresholdTempExcitationPair getExcitationPairIfConditionsMatch(char *line, epicsInt32 tempSp, thresholdTempExcitationPair tempExcitationPair);
+thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsInt32 tempSp);
 
 #ifdef __cplusplus
 }

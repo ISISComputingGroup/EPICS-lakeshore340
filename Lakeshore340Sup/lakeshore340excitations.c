@@ -61,7 +61,7 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
 // If the value of tempSp is greater than or equal to the temperature threshold 
 // from the line (part of the line before the comma) and the new threshold is greater than set in tempExcitationPair
 // Then return a pair of the new temperature and excitation to use or return the old pair
-thresholdTempExcitationPair setExcitationIfTempSpGreaterThanThresholdFromFileLine(char *line, epicsInt32 tempSp, thresholdTempExcitationPair tempExcitationPair) {
+thresholdTempExcitationPair getExcitationPairIfConditionsMatch(char *line, epicsInt32 tempSp, thresholdTempExcitationPair tempExcitationPair) {
     thresholdTempExcitationPair newThresholdTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
     if (tempExcitationPairValid(newThresholdTempExcitationPair) && tempSp >= newThresholdTempExcitationPair.temp && newThresholdTempExcitationPair.temp > tempExcitationPair.temp) {
         return newThresholdTempExcitationPair;
@@ -72,13 +72,13 @@ thresholdTempExcitationPair setExcitationIfTempSpGreaterThanThresholdFromFileLin
 // Get the excitation as an enum value or -1 if no excitation found
 // Find the lowest temperature threshold listed in the file and 
 // return an integer representing the matching excitation enum value or -1 if no matching threshold found
-thresholdTempExcitationPair getExcitation(FILE *thresholdsFile, epicsInt32 tempSp) {
+thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsInt32 tempSp) {
     // Initialise values
     thresholdTempExcitationPair newTempExcitationPair = {INT_MIN, -1};
     char line[256];
     // Loop through lines to find the lowest temp threshold that the setpoint is higher than, set the newExcitation accordingly
     while (fgets(line, sizeof(line), thresholdsFile) != NULL) {
-        newTempExcitationPair = setExcitationIfTempSpGreaterThanThresholdFromFileLine(line, tempSp, newTempExcitationPair);
+        newTempExcitationPair = getExcitationPairIfConditionsMatch(line, tempSp, newTempExcitationPair);
     }
     return newTempExcitationPair;
 }
@@ -102,7 +102,7 @@ static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
     }
     // Calculate excitations from temperature setpoint and file
     epicsInt32 tempSp = *(epicsInt32*)prec->c;
-    thresholdTempExcitationPair thresholdPair = getExcitation(thresholdsFile, tempSp);
+    thresholdTempExcitationPair thresholdPair = getLargestTempExcitationPairFromFileThatIsLessThanTempSp(thresholdsFile, tempSp);
     fclose(thresholdsFile);
     // Set the thresholds excitation and temp pv if in range
     setThresholdPVs(prec, thresholdPair);
