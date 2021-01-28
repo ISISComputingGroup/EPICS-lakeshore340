@@ -442,7 +442,7 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     field(INPB, "$(P)A:TEMP:SP")
     field(FTB,  "DOUBLE")
     # Old Excitation Value
-    field(INPC, "$(P)EXCITATIONA")
+    field(INPC, "$(P)THRESHOLDS:EXCITATION")
     field(FTC,  "ENUM")
     # Old Thresholds temperature value
     field(INPD, "$(P)THRESHOLDS:TEMP")
@@ -450,7 +450,7 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
 
     # Outputs
     # Excitation Output
-    field(OUTA, "$(P)EXCITATIONA:SP PP")
+    field(OUTA, "$(P)THRESHOLDS:EXCITATION")
     field(FTVA, "ENUM")
     # Temperature Output
     field(OUTB, "$(P)THRESHOLDS:TEMP")
@@ -458,6 +458,58 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     # File Output
     field(OUTC, "$(P)THRESHOLDS:ERROR")
     field(FTVC, "ENUM")
+    # Delay change
+    field(OUTD, "$(P)THRESHOLDS:DELAY_CHANGE")
+    field(FTVD, "ENUM")
+}
+
+record(mbbo, "$(P)THRESHOLDS:EXCITATION") {
+    field(DESC, "The excitation set by the thresholds")
+
+    field(ZRST, "Off")
+    field(ONST, "30 nA")
+    field(TWST, "100 nA")
+    field(THST, "300 nA")
+    field(FRST, "1 uA")
+    field(FVST, "3 uA")
+    field(SXST, "10 uA")
+    field(SVST, "30 uA")
+    field(EIST, "100 uA")
+    field(NIST, "300 uA")
+    field(TEST, "1 mA")
+    field(ELST, "10 mV")
+    field(TVST, "1 mV")
+}
+
+record(bo, "$(P)THRESHOLDS:DELAY_CHANGE") {
+    field(DESC, "Delay writing excitation?")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+}
+
+record(calcout, "$(P)THRESHOLDS:DELAY_CHANGE:FALSE") {
+    field(DESC, "Set DELAY_CHANGE to false")
+    field(CALC, "0")
+    field(OUT, "$(P)THRESHOLDS:DELAY_CHANGE")
+}
+
+record(calcout, "$(P)THRESHOLDS:EXCITATION:_CALC") {
+    field(DESC, "Write thresh excitation to excitation?")
+    field(SCAN, "1 second")
+    field(INPA, "$(P)THRESHOLDS:DELAY_CHANGE")
+    field(INPB, "$(P)A:TEMP:SP")
+    field(INPC, "$(P)A:TEMP")
+    field(CALC, "C >= B && A")
+    field(OUT, "$(P)THRESHOLDS:EXCITATION:_FORWARD PP")
+    field(OOPT, "When Non-zero")
+}
+
+record(calcout, "$(P)THRESHOLDS:EXCITATION:_FORWARD") {
+    field(DESC, "Forward thresh excitation to sp")
+    field(INPA, "$(P)THRESHOLDS:EXCITATION")
+    field(CALC, "A")
+    field(OUT, "$(P)EXCITATIONA:SP PP")
+    field(FLNK, "$(P)THRESHOLDS:DELAY_CHANGE:FALSE PP")
 }
 
 record(ao, "$(P)THRESHOLDS:TEMP") {

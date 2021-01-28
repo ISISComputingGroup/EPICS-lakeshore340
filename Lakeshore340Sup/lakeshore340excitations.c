@@ -98,6 +98,8 @@ long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair
         errlogSevPrintf(errlogMajor, tempABuffer);
         // Set that the file has been found
         *(epicsEnum16*)prec->valc = (epicsEnum16)0;
+        // Set that we should delay the change to wait for the temperature
+        *(epicsEnum16*)prec->vald = (epicsEnum16)1;
         // Process output records
         return 0;
     } else {
@@ -118,6 +120,8 @@ static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
         *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
         // Set Error to File Not Found
         *(epicsEnum16*)prec->valc = (epicsEnum16)1;
+        // Set that we should delay the change to wait for the temperature
+        *(epicsEnum16*)prec->vald = (epicsEnum16)0;
         return 0;
     }
     // Calculate excitations from temperature setpoint and file
