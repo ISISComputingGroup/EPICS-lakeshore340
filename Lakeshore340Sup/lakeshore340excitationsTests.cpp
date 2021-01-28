@@ -69,49 +69,4 @@ namespace {
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_FALSE(tempExcitationPairValid(pair));
     }
-
-    TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_less_than_temp_sp_and_greater_than_old_temp_then_line_pair_returned) {
-        char *line = "120.2,30 nA";
-        double tempSp = 125.3;
-        thresholdTempExcitationPair oldPair = {118.0, 3};
-        thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
-        ASSERT_EQ(newPair.excitation, 1);
-        ASSERT_EQ(newPair.temp, 120.2);
-    }
-
-    TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_less_than_temp_sp_and_less_than_old_temp_then_old_pair_returned) {
-        char *line = "120,30 nA";
-        double tempSp = 125.0;
-        thresholdTempExcitationPair oldPair = {122.0, 3};
-        thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
-        ASSERT_EQ(newPair.excitation, 3);
-        ASSERT_EQ(newPair.temp, 122.0);
-    }
-
-    TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_equal_to_temp_sp_and_greater_than_old_temp_then_line_pair_returned) {
-        char *line = "125.0,30 nA";
-        double tempSp = 125.0;
-        thresholdTempExcitationPair oldPair = {118.0, 3};
-        thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
-        ASSERT_EQ(newPair.excitation, 1);
-        ASSERT_EQ(newPair.temp, 125.0);
-    }
-
-    TEST(LSK340ExctationTests, test_when_line_is_not_valid_and_contains_temp_less_than_temp_sp_and_greater_than_old_temp_then_old_pair_returned) {
-        char *line = "120.2,invalid";
-        double tempSp = 125.0;
-        thresholdTempExcitationPair oldPair = {118.0, 3};
-        thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
-        ASSERT_EQ(newPair.excitation, 3);
-        ASSERT_EQ(newPair.temp, 118.0);
-    }
-
-    TEST(LSK340ExctationTests, test_when_line_is_valid_and_contains_temp_greater_than_temp_sp_and_greater_than_old_temp_then_old_pair_returned) {
-        char *line = "126.3,30 nA";
-        double tempSp = 125.0;
-        thresholdTempExcitationPair oldPair = {118.0, 3};
-        thresholdTempExcitationPair newPair = getExcitationPairIfConditionsMatch(line, tempSp, oldPair);
-        ASSERT_EQ(newPair.excitation, 3);
-        ASSERT_EQ(newPair.temp, 118.0);
-    }
 }

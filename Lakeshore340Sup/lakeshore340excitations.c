@@ -11,7 +11,7 @@
 #include "lakeshore340excitations.h"
 
 // Get the enum value from the given enumAsString as an int or -1 if no matching enum value
-int getEnumFromString(char * enumAsString) {
+epicsEnum16 getEnumFromString(char * enumAsString) {
     int i;
     // Loop through string, value pairs
     for (i = 0; i < NUM_OF_EXCITATION_PAIRS; i++) {
@@ -40,15 +40,17 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
     if (tempString != NULL) {
         tempThreshold = atof(tempString);
     } else {
+        // Set to invalid value
         tempThreshold = DBL_MIN;
     }
     char *newExcitationString = strtok(NULL, ",");
-    int excitation;
+    epicsEnum16 excitation;
     if (newExcitationString != NULL) {
         // Strip any newline chars
         newExcitationString[strcspn(newExcitationString, "\r\n") ] = '\0';
         excitation = getEnumFromString(newExcitationString);
     } else {
+        // Set to invalid value
         excitation = -1;
     }
     // Construct struct
@@ -58,53 +60,26 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
     return newPair;
 }
 
-// If the value of tempSp is greater than or equal to the temperature threshold 
-// from the line (part of the line before the comma) and the new threshold is greater than set in tempExcitationPair
-// Then return a pair of the new temperature and excitation to use or return the old pair
-thresholdTempExcitationPair getExcitationPairIfConditionsMatch(char *line, epicsFloat64 tempSp, thresholdTempExcitationPair tempExcitationPair) {
-    thresholdTempExcitationPair newThresholdTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
-    errlogSevPrintf(errlogMajor, "Getting excitation from line");
-    char excitationBuffer[33];
-    itoa(newThresholdTempExcitationPair.excitation, excitationBuffer, 10);
-    errlogSevPrintf(errlogMajor, excitationBuffer);
-    char tempBuffer[33];
-    gcvt(newThresholdTempExcitationPair.temp, 10, tempBuffer);
-    errlogSevPrintf(errlogMajor, tempBuffer);
-    char validBuffer[33];
-    itoa(tempExcitationPairValid(newThresholdTempExcitationPair), validBuffer, 10);
-    errlogSevPrintf(errlogMajor, validBuffer);
-    char tempSpBuffer[33];
-    gcvt(tempSp, 10, tempSpBuffer);
-    errlogSevPrintf(errlogMajor, tempSpBuffer);
-    if (tempExcitationPairValid(newThresholdTempExcitationPair) && tempSp >= newThresholdTempExcitationPair.temp && newThresholdTempExcitationPair.temp > tempExcitationPair.temp) {
-        return newThresholdTempExcitationPair;
-    }
-    return tempExcitationPair;
-}
-
-// Get the excitation as an enum value or -1 if no excitation found
-// Find the lowest temperature threshold listed in the file and 
-// return an integer representing the matching excitation enum value or -1 if no matching threshold found
+// Get the first threshold temperature and excitation where the threshold temperature is less than or equal to the tempSp
+// Or if none match that condition the last threshold temperature and excitation in the file, or an invalid pair if there's nothing in the file
 thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsFloat64 tempSp) {
     // Initialise values
-    thresholdTempExcitationPair newTempExcitationPair = {DBL_MIN, -1};
+    thresholdTempExcitationPair lastTempExcitationPair = {DBL_MIN, -1};
     char line[256];
-    // Loop through lines to find the lowest temp threshold that the setpoint is higher than, set the newExcitation accordingly
+    // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
     while (fgets(line, sizeof(line), thresholdsFile) != NULL) {
-        newTempExcitationPair = getExcitationPairIfConditionsMatch(line, tempSp, newTempExcitationPair);
-        errlogSevPrintf(errlogMajor, "Do Conditions match");
-        char excitationBuffer[33];
-        itoa(newTempExcitationPair.excitation, excitationBuffer, 10);
-        errlogSevPrintf(errlogMajor, excitationBuffer);
-        char tempBuffer[33];
-        gcvt(newTempExcitationPair.temp, 10, tempBuffer);
-        errlogSevPrintf(errlogMajor, tempBuffer);
+        lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
+        // Return the first valid pair that is less than or equal to the temperature setpoint
+        if (tempExcitationPairValid(lastTempExcitationPair) && tempSp >= lastTempExcitationPair.temp) {
+            return lastTempExcitationPair;
+        }
     }
-    return newTempExcitationPair;
+    // Return the last found pair or the original invalid pair
+    return lastTempExcitationPair;
 }
 
 // Set the excitation and temperature threshold pvs from the given thresholdPair
-void setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair) {
+long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair) {
     char excitationBuffer[33];
     itoa(thresholdPair.excitation, excitationBuffer, 10);
     errlogSevPrintf(errlogMajor, excitationBuffer);
@@ -112,10 +87,23 @@ void setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair
     gcvt(thresholdPair.temp, 10, tempBuffer);
     errlogSevPrintf(errlogMajor, tempBuffer);
     if (tempExcitationPairValid(thresholdPair)) {
+        // Set excitation and temp PVs
         *(epicsEnum16*)prec->vala = thresholdPair.excitation;
         *(epicsFloat64*)prec->valb = thresholdPair.temp;
+        char excitationABuffer[33];
+        itoa(*(epicsEnum16*)prec->vala, excitationABuffer, 10);
+        errlogSevPrintf(errlogMajor, excitationABuffer);
+        char tempABuffer[33];
+        gcvt(*(epicsFloat64*)prec->valb, 10, tempABuffer);
+        errlogSevPrintf(errlogMajor, tempABuffer);
+        // Set that the file has been found
+        *(epicsEnum16*)prec->valc = (epicsEnum16)0;
+        // Process output records
+        return 0;
     } else {
         errlogSevPrintf(errlogMajor, "No matching excitation found");
+        // Do not process output records
+        return -1;
     }
 }
 
@@ -124,15 +112,25 @@ static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
     FILE *thresholdsFile = fopen(prec->a, "r");
     if (thresholdsFile == NULL) {
         errlogSevPrintf(errlogMajor, "Failed to open thresholds file");
-        return 1;
+        errlogSevPrintf(errlogMajor, prec->a);
+        // Set pvs to old values otherwise weird values are set
+        *(epicsEnum16*)prec->vala = *(epicsEnum16*)prec->c;
+        *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
+        // Set Error to File Not Found
+        *(epicsEnum16*)prec->valc = (epicsEnum16)1;
+        return 0;
     }
     // Calculate excitations from temperature setpoint and file
-    epicsFloat64 tempSp = *(epicsFloat64*)prec->c;
+    epicsFloat64 tempSp = *(epicsFloat64*)prec->b;
+    char tempBuffer[33];
+    gcvt(tempSp, 10, tempBuffer);
+    errlogSevPrintf(errlogMajor, "TEMP SP");
+    errlogSevPrintf(errlogMajor, tempBuffer);
     thresholdTempExcitationPair thresholdPair = getLargestTempExcitationPairFromFileThatIsLessThanTempSp(thresholdsFile, tempSp);
     fclose(thresholdsFile);
     // Set the thresholds excitation and temp pv if in range
-    setThresholdPVs(prec, thresholdPair);
-    return 0;
+    long returnValue = setThresholdPVs(prec, thresholdPair);
+    return returnValue;
 }
 
 epicsRegisterFunction(calculateNewExcitationFromThresholds);
