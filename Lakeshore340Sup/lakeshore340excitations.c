@@ -80,22 +80,10 @@ thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTe
 
 // Set the excitation and temperature threshold pvs from the given thresholdPair
 long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair) {
-    char excitationBuffer[33];
-    itoa(thresholdPair.excitation, excitationBuffer, 10);
-    errlogSevPrintf(errlogMajor, excitationBuffer);
-    char tempBuffer[33];
-    gcvt(thresholdPair.temp, 10, tempBuffer);
-    errlogSevPrintf(errlogMajor, tempBuffer);
     if (tempExcitationPairValid(thresholdPair)) {
         // Set excitation and temp PVs
         *(epicsEnum16*)prec->vala = thresholdPair.excitation;
         *(epicsFloat64*)prec->valb = thresholdPair.temp;
-        char excitationABuffer[33];
-        itoa(*(epicsEnum16*)prec->vala, excitationABuffer, 10);
-        errlogSevPrintf(errlogMajor, excitationABuffer);
-        char tempABuffer[33];
-        gcvt(*(epicsFloat64*)prec->valb, 10, tempABuffer);
-        errlogSevPrintf(errlogMajor, tempABuffer);
         // Set that the file has been found
         *(epicsEnum16*)prec->valc = (epicsEnum16)0;
         // Set that we should delay the change to wait for the temperature
