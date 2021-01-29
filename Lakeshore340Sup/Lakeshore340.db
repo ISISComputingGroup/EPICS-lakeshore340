@@ -479,18 +479,22 @@ record(mbbo, "$(P)THRESHOLDS:EXCITATION") {
     field(TEST, "1 mA")
     field(ELST, "10 mV")
     field(TVST, "1 mV")
+
+    field(UDFS, "NO_ALARM")
 }
 
 record(bo, "$(P)THRESHOLDS:DELAY_CHANGE") {
     field(DESC, "Delay writing excitation?")
     field(ZNAM, "NO")
     field(ONAM, "YES")
+    field(UDFS, "NO_ALARM")
 }
 
 record(calcout, "$(P)THRESHOLDS:DELAY_CHANGE:FALSE") {
     field(DESC, "Set DELAY_CHANGE to false")
     field(CALC, "0")
     field(OUT, "$(P)THRESHOLDS:DELAY_CHANGE")
+    field(UDFS, "NO_ALARM")
 }
 
 record(calcout, "$(P)THRESHOLDS:EXCITATION:_CALC") {
@@ -502,6 +506,7 @@ record(calcout, "$(P)THRESHOLDS:EXCITATION:_CALC") {
     field(CALC, "C >= B && A")
     field(OUT, "$(P)THRESHOLDS:EXCITATION:_FORWARD PP")
     field(OOPT, "When Non-zero")
+    field(UDFS, "NO_ALARM")
 }
 
 record(calcout, "$(P)THRESHOLDS:EXCITATION:_FORWARD") {
@@ -510,16 +515,23 @@ record(calcout, "$(P)THRESHOLDS:EXCITATION:_FORWARD") {
     field(CALC, "A")
     field(OUT, "$(P)EXCITATIONA:SP PP")
     field(FLNK, "$(P)THRESHOLDS:DELAY_CHANGE:FALSE PP")
+    field(UDFS, "NO_ALARM")
 }
 
 record(ao, "$(P)THRESHOLDS:TEMP") {
     field(DESC, "Temp selected by thresholds")
     field(PREC, "5")
     field(EGU, "K")
+    field(UDFS, "NO_ALARM")
 }
 
 record(mbbo, "$(P)THRESHOLDS:ERROR") {
     field(DESC, "Error when using the thresholds file")
     field(ZRST, "No Error")
+    field(ZRSV, "NO_ALARM")
     field(ONST, "File Not Found")
+    field(ONSV, "MINOR")
+    field(TWST, "Invalid Lines In File")
+    field(TWSV, "MINOR")
+    field(UDFS, "NO_ALARM")
 }

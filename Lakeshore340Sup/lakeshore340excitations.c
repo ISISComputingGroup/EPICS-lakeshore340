@@ -109,6 +109,27 @@ long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair
     }
 }
 
+bool containsInvalidLines(FILE *thresholdsFile) {
+    // Initialise values
+    thresholdTempExcitationPair lastTempExcitationPair = {DBL_MIN, -1}; 
+    bool invalidLines = false;
+    char line[256];
+    // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
+    while (fgets(line, sizeof(line), thresholdsFile) != NULL) {
+        lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
+        // Return the first valid pair that is less than or equal to the temperature setpoint
+        if (!tempExcitationPairValid(lastTempExcitationPair)) {
+            errlogSevPrintf(errlogMajor, "Line Invalid:");
+            errlogSevPrintf(errlogMajor, line);
+            invalidLines = true;
+        }
+    }
+    // Reset file read to start
+    rewind(thresholdsFile);
+    // Return the last found pair or the original invalid pair
+    return invalidLines;
+}
+
 static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
     // Open file and check it has opened
     FILE *thresholdsFile = fopen(prec->a, "r");
@@ -120,7 +141,19 @@ static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
         *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
         // Set Error to File Not Found
         *(epicsEnum16*)prec->valc = (epicsEnum16)1;
-        // Set that we should delay the change to wait for the temperature
+        // Set that we should not delay the change to wait for the temperature
+        *(epicsEnum16*)prec->vald = (epicsEnum16)0;
+        return 0;
+    }
+    if (containsInvalidLines(thresholdsFile)) {
+        errlogSevPrintf(errlogMajor, "File contains invalid lines");
+        errlogSevPrintf(errlogMajor, prec->a);
+        // Set pvs to old values otherwise weird values are set
+        *(epicsEnum16*)prec->vala = *(epicsEnum16*)prec->c;
+        *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
+        // Set Error to File Invalid
+        *(epicsEnum16*)prec->valc = (epicsEnum16)2;
+        // Set that we should not delay the change to wait for the temperature
         *(epicsEnum16*)prec->vald = (epicsEnum16)0;
         return 0;
     }
