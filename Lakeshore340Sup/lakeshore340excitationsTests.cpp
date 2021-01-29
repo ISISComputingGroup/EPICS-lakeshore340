@@ -1,3 +1,7 @@
+#include <registryFunction.h>
+#include <epicsExport.h>
+#include <aSubRecord.h>
+#include <errlog.h>
 #include "gtest/gtest.h"
 #include "lakeshore340excitations.h"
 #include <stdint.h>
@@ -39,7 +43,7 @@ namespace {
     }
 
     TEST(LSK340ExctationTests, test_when_excitation_string_not_valid_then_minus_1_returned){
-        ASSERT_EQ(getEnumFromString("Invalid String"), -1);
+        ASSERT_EQ(getEnumFromString("Invalid String"), (epicsEnum16)-1);
     }
 
     TEST(LSK340ExctationTests, test_when_line_valid_with_newline_then_function_returns_valid_struct){
