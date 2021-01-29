@@ -70,7 +70,7 @@ thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTe
     while (fgets(line, sizeof(line), thresholdsFile) != NULL) {
         lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
         // Return the first valid pair that is less than or equal to the temperature setpoint
-        if (tempExcitationPairValid(lastTempExcitationPair) && tempSp >= lastTempExcitationPair.temp) {
+        if (tempExcitationPairValid(lastTempExcitationPair) && tempSp < lastTempExcitationPair.temp) {
             return lastTempExcitationPair;
         }
     }
@@ -133,6 +133,10 @@ bool containsInvalidLines(FILE *thresholdsFile) {
 static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
     // Open file and check it has opened
     FILE *thresholdsFile = fopen(prec->a, "r");
+    if (strstr(prec->a, "None.txt") != NULL) {
+        // File is set to None.txt so don't set or check any values
+        return -1;
+    }
     if (thresholdsFile == NULL) {
         errlogSevPrintf(errlogMajor, "Failed to open thresholds file");
         errlogSevPrintf(errlogMajor, prec->a);
