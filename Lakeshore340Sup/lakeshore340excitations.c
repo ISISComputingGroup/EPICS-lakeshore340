@@ -116,7 +116,7 @@ long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair
 
 bool containsInvalidLines(FILE *thresholdsFile) {
     // Initialise values
-    thresholdTempExcitationPair lastTempExcitationPair = {DBL_MIN, -1}; 
+    thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair(); 
     bool invalidLines = false;
     char line[LINE_LENGTH];
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
@@ -135,43 +135,43 @@ bool containsInvalidLines(FILE *thresholdsFile) {
     return invalidLines;
 }
 
+void setThresholdsToOldValuesAndSetError(aSubRecord *prec, epicsEnum16 error) {
+    // Set New values to old values
+    *(epicsEnum16*)prec->vala = *(epicsEnum16*)prec->c;
+    *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
+    // Set Error 
+    *(epicsEnum16*)prec->valc = error;
+    // Set that we should not delay the change to wait for the temperature
+    *(epicsEnum16*)prec->vald = (epicsEnum16)0;
+}
+
 static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
+    // Check if we are set to use excitation thresholds
+    const int notUsingExcitationsFile = *(epicsInt8*)prec->e == 0;
+    if (notUsingExcitationsFile) {
+        // We are not set to use excitation thresholds, set no error
+        setThresholdsToOldValuesAndSetError(prec, (epicsEnum16)0);
+        return 0;
+    }
     // Open file and check it has opened
     FILE *thresholdsFile = fopen(prec->a, "r");
-    if (strstr(prec->a, "None.txt") != NULL) {
-        // File is set to None.txt so don't set or check any values
-        return -1;
-    }
     if (thresholdsFile == NULL) {
         errlogSevPrintf(errlogMajor, "Failed to open thresholds file");
         errlogSevPrintf(errlogMajor, prec->a);
-        // Set pvs to old values otherwise weird values are set
-        *(epicsEnum16*)prec->vala = *(epicsEnum16*)prec->c;
-        *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
         // Set Error to File Not Found
-        *(epicsEnum16*)prec->valc = (epicsEnum16)1;
-        // Set that we should not delay the change to wait for the temperature
-        *(epicsEnum16*)prec->vald = (epicsEnum16)0;
+        setThresholdsToOldValuesAndSetError(prec, (epicsEnum16)1);
         return 0;
     }
     if (containsInvalidLines(thresholdsFile)) {
+        fclose(thresholdsFile);
         errlogSevPrintf(errlogMajor, "File contains invalid lines");
         errlogSevPrintf(errlogMajor, prec->a);
-        // Set pvs to old values otherwise weird values are set
-        *(epicsEnum16*)prec->vala = *(epicsEnum16*)prec->c;
-        *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
         // Set Error to File Invalid
-        *(epicsEnum16*)prec->valc = (epicsEnum16)2;
-        // Set that we should not delay the change to wait for the temperature
-        *(epicsEnum16*)prec->vald = (epicsEnum16)0;
+        setThresholdsToOldValuesAndSetError(prec, (epicsEnum16)2);
         return 0;
     }
     // Calculate excitations from temperature setpoint and file
     epicsFloat64 tempSp = *(epicsFloat64*)prec->b;
-    char tempBuffer[33];
-    gcvt(tempSp, 10, tempBuffer);
-    errlogSevPrintf(errlogMajor, "TEMP SP");
-    errlogSevPrintf(errlogMajor, tempBuffer);
     thresholdTempExcitationPair thresholdPair = getLargestTempExcitationPairFromFileThatIsLessThanTempSp(thresholdsFile, tempSp);
     fclose(thresholdsFile);
     // Set the thresholds excitation and temp pv if in range

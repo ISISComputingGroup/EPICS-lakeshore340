@@ -451,6 +451,9 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     # Old Thresholds temperature value
     field(INPD, "$(P)THRESHOLDS:TEMP")
     field(FTD,  "DOUBLE")
+    # Whether to use the thresholds mechanism
+    field(INPE, "$(P)THRESHOLDS:USE")
+    field(FTE,  "INT64")
 
     # Outputs
     # Excitation Output
@@ -539,5 +542,14 @@ record(mbbo, "$(P)THRESHOLDS:ERROR") {
     field(ONSV, "MINOR")
     field(TWST, "Invalid Lines In File")
     field(TWSV, "MINOR")
+    field(UDFS, "NO_ALARM")
+}
+
+record(bo, "$(P)THRESHOLDS:USE") {
+    field(DESC, "Whether to use the thresholds mechanism")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+$(IFUSE_EXCITATION_FILE) field(VAL, "1")
+$(IFNOTUSE_EXCITATION_FILE) field(VAL, "0")
     field(UDFS, "NO_ALARM")
 }
