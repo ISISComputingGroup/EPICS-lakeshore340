@@ -65,9 +65,9 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
 thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsFloat64 tempSp) {
     // Initialise values
     thresholdTempExcitationPair lastTempExcitationPair = {DBL_MIN, -1};
-    char line[256];
+    char line[LINE_LENGTH];
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
-    while (fgets(line, sizeof(line), thresholdsFile) != NULL) {
+    while (fgets(line, LINE_LENGTH, thresholdsFile) != NULL) {
         lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
         // Return the first valid pair that is less than or equal to the temperature setpoint
         if (tempExcitationPairValid(lastTempExcitationPair) && tempSp < lastTempExcitationPair.temp) {
@@ -101,9 +101,9 @@ bool containsInvalidLines(FILE *thresholdsFile) {
     // Initialise values
     thresholdTempExcitationPair lastTempExcitationPair = {DBL_MIN, -1}; 
     bool invalidLines = false;
-    char line[256];
+    char line[LINE_LENGTH];
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
-    while (fgets(line, sizeof(line), thresholdsFile) != NULL) {
+    while (fgets(line, LINE_LENGTH, thresholdsFile) != NULL) {
         lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
         // Return the first valid pair that is less than or equal to the temperature setpoint
         if (!tempExcitationPairValid(lastTempExcitationPair)) {

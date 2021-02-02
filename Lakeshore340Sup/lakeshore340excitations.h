@@ -22,6 +22,8 @@ static excitationStringValuePair excitation_string_to_val_map[] = {
 
 #define NUM_OF_EXCITATION_PAIRS (sizeof(excitation_string_to_val_map)/sizeof(excitationStringValuePair))
 
+#define LINE_LENGTH 256
+
 typedef struct {
     epicsFloat64 temp;
     epicsEnum16 excitation;
