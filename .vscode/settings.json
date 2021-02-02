@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "*.protocol": "proto",
-        "MacJenkinsfile": "groovy",
-        "lakeshore340excitations.h": "c"
-    }
-}
