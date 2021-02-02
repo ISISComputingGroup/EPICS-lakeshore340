@@ -13,6 +13,7 @@ typedef struct {
 } excitationStringValuePair;
 
 // excitation mbbi string and enum value pairs
+// If changing the values here also change the values in the Lakeshore340.db file
 static excitationStringValuePair excitation_string_to_val_map[] = {
     {"Off", 0}, {"30 nA", 1}, {"100 nA", 2}, {"300 nA", 3}, {"1 uA", 4},
     {"3 uA", 5}, {"10 uA", 6}, {"30 uA", 7}, {"100 uA", 8}, {"300 uA", 9},

@@ -368,6 +368,8 @@ record(mbbi, "$(P)EXCITATIONA") {
     field(SCAN, "5 second")
     field(PINI, "YES")
 
+    # If changing these values please also
+    # change the values in the lakeshore340excitations.h file
     field(ZRST, "Off")
     field(ONST, "30 nA")
     field(TWST, "100 nA")
@@ -394,6 +396,8 @@ record(mbbo, "$(P)EXCITATIONA:SP") {
     field(DTYP, "stream")
     field(OUT, "@Lakeshore340.proto setExA $(PORT)")
 
+    # If changing these values please also
+    # change the values in the lakeshore340excitations.h file
     field(ZRST, "Off")
     field(ONST, "30 nA")
     field(TWST, "100 nA")
@@ -466,6 +470,8 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
 record(mbbo, "$(P)THRESHOLDS:EXCITATION") {
     field(DESC, "The excitation set by the thresholds")
 
+    # If changing these values please also
+    # change the values in the lakeshore340excitations.h file
     field(ZRST, "Off")
     field(ONST, "30 nA")
     field(TWST, "100 nA")
