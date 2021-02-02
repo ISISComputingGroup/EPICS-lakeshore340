@@ -30,8 +30,25 @@ bool tempExcitationPairValid(thresholdTempExcitationPair pair) {
     return pair.excitation >= 0 && pair.excitation < NUM_OF_EXCITATION_PAIRS && pair.temp > DBL_MIN;
 }
 
+// Check if the line is too long i.e. does not contain a new line character
+int lineIsTooLong(char *line) {
+    int doesNotContainCarriageReturn = strchr(line, '\r') == NULL;
+    int doesNotContainNewLine = strchr(line, '\n') == NULL;
+    return doesNotContainCarriageReturn && doesNotContainNewLine;
+}
+
+thresholdTempExcitationPair getInvalidThresholdTempExcitationPair() {
+    thresholdTempExcitationPair invalidPair = {DBL_MIN, -1};
+    return invalidPair;
+}
+
 // Build a thresholdTempExcitationPair from the line e.g. "30,10 uA"
 thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
+    if (lineIsTooLong(line)) {
+        errlogSevPrintf(errlogMajor, "Line too long: ");
+        errlogSevPrintf(errlogMajor, line);
+        return getInvalidThresholdTempExcitationPair();
+    }
     // Duplicate line to avoid affecting line char array
     char *lineDup = strdup(line);
     // Get pair values from line
@@ -64,7 +81,7 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
 // Or if none match that condition the last threshold temperature and excitation in the file, or an invalid pair if there's nothing in the file
 thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsFloat64 tempSp) {
     // Initialise values
-    thresholdTempExcitationPair lastTempExcitationPair = {DBL_MIN, -1};
+    thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair();
     char line[LINE_LENGTH];
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
     while (fgets(line, LINE_LENGTH, thresholdsFile) != NULL) {

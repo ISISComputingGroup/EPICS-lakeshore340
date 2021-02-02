@@ -34,6 +34,7 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line);
 epicsEnum16 getEnumFromString(char * enumAsString);
 thresholdTempExcitationPair getExcitationPairIfConditionsMatch(char *line, epicsFloat64 tempSp, thresholdTempExcitationPair tempExcitationPair);
 thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsFloat64 tempSp);
+thresholdTempExcitationPair getInvalidThresholdTempExcitationPair();
 
 #ifdef __cplusplus
 }

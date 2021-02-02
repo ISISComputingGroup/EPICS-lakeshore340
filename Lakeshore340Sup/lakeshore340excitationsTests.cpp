@@ -25,13 +25,15 @@ namespace {
     TEST(LSK340ExctationTests, test_when_temp_greater_than_int_min_then_pair_is_valid){
         thresholdTempExcitationPair pair1 = {DBL_MIN+1, 3};
         ASSERT_TRUE(tempExcitationPairValid(pair1));
-        thresholdTempExcitationPair pair2 = {FLT_MAX, 3};
+        thresholdTempExcitationPair pair2 = {DBL_MAX, 3};
         ASSERT_TRUE(tempExcitationPairValid(pair2));
     }
 
     TEST(LSK340ExctationTests, test_when_temp_is_int_min_then_pair_is_invalid){
         thresholdTempExcitationPair pair1 = {DBL_MIN, 3};
         ASSERT_FALSE(tempExcitationPairValid(pair1));
+        thresholdTempExcitationPair pair2 = getInvalidThresholdTempExcitationPair();
+        ASSERT_FALSE(tempExcitationPairValid(pair2));
     }
 
     TEST(LSK340ExctationTests, test_when_excitation_string_valid_then_excitation_value_returned){
@@ -46,7 +48,7 @@ namespace {
         ASSERT_EQ(getEnumFromString("Invalid String"), (epicsEnum16)-1);
     }
 
-    TEST(LSK340ExctationTests, test_when_line_valid_with_newline_then_function_returns_valid_struct){
+    TEST(LSK340ExctationTests, test_when_line_valid_with_carriage_return_and_newline_then_function_returns_valid_struct){
         char *line = "120.2,30 nA\r\n";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_EQ(pair.excitation, 1);
@@ -54,8 +56,8 @@ namespace {
         ASSERT_TRUE(tempExcitationPairValid(pair));
     }
 
-    TEST(LSK340ExctationTests, test_when_line_without_newline_valid_then_function_returns_valid_struct){
-        char *line = "120.2,30 nA";
+    TEST(LSK340ExctationTests, test_when_line_valid_with_newline_then_function_returns_valid_struct){
+        char *line = "120.2,30 nA\n";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_EQ(pair.excitation, 1);
         ASSERT_EQ(pair.temp, 120.2);
@@ -63,13 +65,19 @@ namespace {
     }
 
     TEST(LSK340ExctationTests, test_when_line_temp_not_valid_then_function_returns_invalid_struct){
-        char *line = ",30 nA\r\n";
+        char *line = ",30 nA\n";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_FALSE(tempExcitationPairValid(pair));
     }
 
     TEST(LSK340ExctationTests, test_when_line_excitation_not_valid_then_function_returns_invalid_struct){
         char *line = "120.2,invalid\r\n";
+        thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
+        ASSERT_FALSE(tempExcitationPairValid(pair));
+    }
+
+    TEST(LSK340ExctationTests, test_given_line_does_not_contain_newline_then_function_returns_invalid_struct){
+        char *line = "120.2,30 nA";
         thresholdTempExcitationPair pair = getThresholdTempExcitationPairFromLine(line);
         ASSERT_FALSE(tempExcitationPairValid(pair));
     }
