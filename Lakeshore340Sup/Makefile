@@ -14,7 +14,7 @@ ifeq ($(findstring 10.0,$(VCVERSION)),)
 GTESTPROD_HOST+= runner
 runner_INC += lakeshore340excitations.h
 runner_LIBS += $(EPICS_BASE_IOC_LIBS) asyn
-runner_LIBS += asyn utilities gsl
+runner_LIBS += asyn utilities
 runner_LIBS += asubFunctions
 runner_SRCS += lakeshore340excitations.c lakeshore340excitationsTests.cpp
 GTESTS += runner
@@ -26,7 +26,7 @@ Lakeshore340_DBD += aSubFunctions.dbd
 Lakeshore340_SRCS += lakeshore340excitations.c
 
 Lakeshore340_LIBS += $(EPICS_BASE_IOC_LIBS)
-Lakeshore340_LIBS += asyn utilities gsl
+Lakeshore340_LIBS += asyn utilities
 Lakeshore340_LIBS += asubFunctions
 
 #=======================================
