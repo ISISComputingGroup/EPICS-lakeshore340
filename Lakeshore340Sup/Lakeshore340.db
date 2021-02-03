@@ -457,16 +457,16 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
 
     # Outputs
     # Excitation Output
-    field(OUTA, "$(P)THRESHOLDS:EXCITATION")
+    field(OUTA, "$(P)THRESHOLDS:EXCITATION PP")
     field(FTVA, "ENUM")
     # Temperature Output
-    field(OUTB, "$(P)THRESHOLDS:TEMP")
+    field(OUTB, "$(P)THRESHOLDS:TEMP PP")
     field(FTVB, "DOUBLE")
     # File Output
-    field(OUTC, "$(P)THRESHOLDS:ERROR")
+    field(OUTC, "$(P)THRESHOLDS:ERROR PP")
     field(FTVC, "ENUM")
     # Delay change
-    field(OUTD, "$(P)THRESHOLDS:DELAY_CHANGE")
+    field(OUTD, "$(P)THRESHOLDS:DELAY_CHANGE PP")
     field(FTVD, "ENUM")
 }
 
