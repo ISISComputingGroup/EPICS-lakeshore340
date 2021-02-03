@@ -12,12 +12,12 @@ DBD += Lakeshore340.dbd
 
 ifeq ($(findstring 10.0,$(VCVERSION)),)
 GTESTPROD_HOST+= runner
-GTESTS += runner
 runner_INC += lakeshore340excitations.h
 runner_LIBS += $(EPICS_BASE_IOC_LIBS) asyn
 runner_LIBS += asyn utilities gsl
 runner_LIBS += asubFunctions
 runner_SRCS += lakeshore340excitations.c lakeshore340excitationsTests.cpp
+GTESTS += runner
 endif
 
 Lakeshore340_DBD += asyn.dbd
@@ -31,3 +31,5 @@ Lakeshore340_LIBS += asubFunctions
 
 #=======================================
 include $(TOP)/configure/RULES
+
+include $(GTEST)/cfg/compat.RULES_BUILD
