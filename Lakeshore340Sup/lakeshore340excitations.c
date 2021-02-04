@@ -1,17 +1,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <stdbool.h>
 #include <float.h>
 #include <registryFunction.h>
-#include <epicsExport.h>
 #include <aSubRecord.h>
 #include <errlog.h>
+
+#include <epicsExport.h>
 
 #include "lakeshore340excitations.h"
 
 // Get the enum value from the given enumAsString as an int or -1 if no matching enum value
-epicsEnum16 getEnumFromString(char * enumAsString) {
+epicsEnum16 getEnumFromString(const char * enumAsString) {
     int i;
     // Loop through string, value pairs
     for (i = 0; i < NUM_OF_EXCITATION_PAIRS; i++) {
@@ -26,24 +26,24 @@ epicsEnum16 getEnumFromString(char * enumAsString) {
 }
 
 // Check whether the given pair is valid
-bool tempExcitationPairValid(thresholdTempExcitationPair pair) {
+int tempExcitationPairValid(thresholdTempExcitationPair pair) {
     return pair.excitation >= 0 && pair.excitation < NUM_OF_EXCITATION_PAIRS && pair.temp > DBL_MIN;
 }
 
 // Check if the line is too long i.e. does not contain a new line character
-int lineIsTooLong(char *line) {
+static int lineIsTooLong(const char *line) {
     int doesNotContainCarriageReturn = strchr(line, '\r') == NULL;
     int doesNotContainNewLine = strchr(line, '\n') == NULL;
     return doesNotContainCarriageReturn && doesNotContainNewLine;
 }
 
-thresholdTempExcitationPair getInvalidThresholdTempExcitationPair() {
+thresholdTempExcitationPair getInvalidThresholdTempExcitationPair(void) {
     thresholdTempExcitationPair invalidPair = {DBL_MIN, -1};
     return invalidPair;
 }
 
 // Build a thresholdTempExcitationPair from the line e.g. "30,10 uA"
-thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
+thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(const char *line) {
     if (lineIsTooLong(line)) {
         errlogSevPrintf(errlogMajor, "Line too long: ");
         errlogSevPrintf(errlogMajor, line);
@@ -74,6 +74,7 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(char *line) {
     thresholdTempExcitationPair newPair;
     newPair.temp = tempThreshold;
     newPair.excitation = excitation;
+    free(lineDup);
     return newPair;
 }
 
@@ -96,7 +97,7 @@ thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTe
 }
 
 // Set the excitation and temperature threshold pvs from the given thresholdPair
-long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair) {
+static long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair) {
     if (tempExcitationPairValid(thresholdPair)) {
         // Set excitation and temp PVs
         *(epicsEnum16*)prec->vala = thresholdPair.excitation;
@@ -114,10 +115,10 @@ long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresholdPair
     }
 }
 
-bool containsInvalidLines(FILE *thresholdsFile) {
+static int containsInvalidLines(FILE *thresholdsFile) {
     // Initialise values
     thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair(); 
-    bool invalidLines = false;
+    int invalidLines = 0;
     char line[LINE_LENGTH];
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
     while (fgets(line, LINE_LENGTH, thresholdsFile) != NULL) {
@@ -126,7 +127,7 @@ bool containsInvalidLines(FILE *thresholdsFile) {
         if (!tempExcitationPairValid(lastTempExcitationPair)) {
             errlogSevPrintf(errlogMajor, "Line Invalid:");
             errlogSevPrintf(errlogMajor, line);
-            invalidLines = true;
+            invalidLines = 1;
         }
     }
     // Reset file read to start
@@ -135,7 +136,7 @@ bool containsInvalidLines(FILE *thresholdsFile) {
     return invalidLines;
 }
 
-void setThresholdsToOldValuesAndSetError(aSubRecord *prec, epicsEnum16 error) {
+static void setThresholdsToOldValuesAndSetError(aSubRecord *prec, epicsEnum16 error) {
     // Set New values to old values
     *(epicsEnum16*)prec->vala = *(epicsEnum16*)prec->c;
     *(epicsFloat64*)prec->valb = *(epicsFloat64*)prec->d;
