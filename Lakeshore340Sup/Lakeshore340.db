@@ -453,7 +453,7 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
     field(FTD,  "DOUBLE")
     # Whether to use the thresholds mechanism
     field(INPE, "$(P)THRESHOLDS:USE")
-    field(FTE,  "INT64")
+    field(FTE,  "ENUM")
 
     # Outputs
     # Excitation Output
