@@ -44,24 +44,26 @@ thresholdTempExcitationPair getInvalidThresholdTempExcitationPair(void) {
 
 // Build a thresholdTempExcitationPair from the line e.g. "30,10 uA"
 thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(const char *line) {
+    char *lineDup, *tempString, *newExcitationString;
+    epicsFloat64 tempThreshold;
+    epicsEnum16 excitation;
+    thresholdTempExcitationPair newPair;
     if (lineIsTooLong(line)) {
         errlogSevPrintf(errlogMajor, "Line too long: ");
         errlogSevPrintf(errlogMajor, line);
         return getInvalidThresholdTempExcitationPair();
     }
     // Duplicate line to avoid affecting line char array
-    char *lineDup = strdup(line);
+    lineDup = strdup(line);
     // Get pair values from line
-    char *tempString = strtok(lineDup, ",");
-    epicsFloat64 tempThreshold;
+    tempString = strtok(lineDup, ",");
     if (tempString != NULL) {
         tempThreshold = atof(tempString);
     } else {
         // Set to invalid value
         tempThreshold = DBL_MIN;
     }
-    char *newExcitationString = strtok(NULL, ",");
-    epicsEnum16 excitation;
+    newExcitationString = strtok(NULL, ",");
     if (newExcitationString != NULL) {
         // Strip any newline chars
         newExcitationString[strcspn(newExcitationString, "\r\n") ] = '\0';
@@ -71,7 +73,6 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(const char *l
         excitation = -1;
     }
     // Construct struct
-    thresholdTempExcitationPair newPair;
     newPair.temp = tempThreshold;
     newPair.excitation = excitation;
     free(lineDup);
@@ -82,8 +83,8 @@ thresholdTempExcitationPair getThresholdTempExcitationPairFromLine(const char *l
 // Or if none match that condition the last threshold temperature and excitation in the file, or an invalid pair if there's nothing in the file
 thresholdTempExcitationPair getLargestTempExcitationPairFromFileThatIsLessThanTempSp(FILE *thresholdsFile, epicsFloat64 tempSp) {
     // Initialise values
-    thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair();
     char line[LINE_LENGTH];
+    thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair();
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
     while (fgets(line, LINE_LENGTH, thresholdsFile) != NULL) {
         lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
@@ -117,9 +118,9 @@ static long setThresholdPVs(aSubRecord *prec, thresholdTempExcitationPair thresh
 
 static int containsInvalidLines(FILE *thresholdsFile) {
     // Initialise values
-    thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair(); 
     int invalidLines = 0;
     char line[LINE_LENGTH];
+    thresholdTempExcitationPair lastTempExcitationPair = getInvalidThresholdTempExcitationPair(); 
     // Loop through lines to find the first temp threshold that the setpoint is higher than, set the newExcitation accordingly
     while (fgets(line, LINE_LENGTH, thresholdsFile) != NULL) {
         lastTempExcitationPair = getThresholdTempExcitationPairFromLine(line);
@@ -148,14 +149,17 @@ static void setThresholdsToOldValuesAndSetError(aSubRecord *prec, epicsEnum16 er
 
 static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
     // Check if we are set to use excitation thresholds
-    const int notUsingExcitationsFile = *(epicsInt8*)prec->e == 0;
+    FILE *thresholdsFile;
+	epicsFloat64 tempSp;
+	thresholdTempExcitationPair thresholdPair;
+     const int notUsingExcitationsFile = *(epicsInt8*)prec->e == 0;
     if (notUsingExcitationsFile) {
         // We are not set to use excitation thresholds, set no error
         setThresholdsToOldValuesAndSetError(prec, (epicsEnum16)0);
         return 0;
     }
     // Open file and check it has opened
-    FILE *thresholdsFile = fopen(prec->a, "r");
+    thresholdsFile = fopen(prec->a, "r");
     if (thresholdsFile == NULL) {
         errlogSevPrintf(errlogMajor, "Failed to open thresholds file");
         errlogSevPrintf(errlogMajor, prec->a);
@@ -172,12 +176,11 @@ static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
         return 0;
     }
     // Calculate excitations from temperature setpoint and file
-    epicsFloat64 tempSp = *(epicsFloat64*)prec->b;
-    thresholdTempExcitationPair thresholdPair = getLargestTempExcitationPairFromFileThatIsLessThanTempSp(thresholdsFile, tempSp);
+    tempSp = *(epicsFloat64*)prec->b;
+    thresholdPair = getLargestTempExcitationPairFromFileThatIsLessThanTempSp(thresholdsFile, tempSp);
     fclose(thresholdsFile);
     // Set the thresholds excitation and temp pv if in range
-    long returnValue = setThresholdPVs(prec, thresholdPair);
-    return returnValue;
+    return setThresholdPVs(prec, thresholdPair);
 }
 
 epicsRegisterFunction(calculateNewExcitationFromThresholds);
