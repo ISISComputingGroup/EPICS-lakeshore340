@@ -149,10 +149,11 @@ static void setThresholdsToOldValuesAndSetError(aSubRecord *prec, epicsEnum16 er
 
 static long calculateNewExcitationFromThresholds(aSubRecord *prec) {
     // Check if we are set to use excitation thresholds
+    const int notUsingExcitationsFile = *(epicsEnum16*)prec->e == 0;
     FILE *thresholdsFile;
 	epicsFloat64 tempSp;
 	thresholdTempExcitationPair thresholdPair;
-     const int notUsingExcitationsFile = *(epicsInt8*)prec->e == 0;
+    const int notUsingExcitationsFile = *(epicsEnum16*)prec->e == 0;
     if (notUsingExcitationsFile) {
         // We are not set to use excitation thresholds, set no error
         setThresholdsToOldValuesAndSetError(prec, (epicsEnum16)0);
