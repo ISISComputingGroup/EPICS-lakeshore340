@@ -393,6 +393,7 @@ record(mbbi, "$(P)EXCITATIONA") {
 }
 
 record(mbbo, "$(P)EXCITATIONA:SP") {
+    field(DESC, "Excitation Setting SP")
     field(DTYP, "stream")
     field(OUT, "@Lakeshore340.proto setExA $(PORT)")
 
