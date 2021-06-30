@@ -32,4 +32,4 @@ Lakeshore340_LIBS += asubFunctions
 #=======================================
 include $(TOP)/configure/RULES
 
-include $(GTEST)/cfg/compat.RULES_BUILD
+-include $(GTEST)/cfg/compat.RULES_BUILD
