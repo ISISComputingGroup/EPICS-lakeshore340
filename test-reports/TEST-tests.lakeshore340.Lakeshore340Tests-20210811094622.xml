@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tests.lakeshore340.Lakeshore340Tests-20210811094622" tests="89" file="tests/lakeshore340.py" time="255.845" timestamp="2021-08-11T09:51:08" failures="0" errors="0" skipped="37">
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_device_is_started_THEN_it_is_not_disabled" time="0.000" timestamp="2021-08-11T09:46:52" file="system_tests\tests\lakeshore340.py" line="84"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_do_not_use_file_THEN_threshold_file_is_not_set" time="19.232" timestamp="2021-08-11T09:47:11" file="system_tests\tests\lakeshore340.py" line="147"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_00_Off" time="0.126" timestamp="2021-08-11T09:47:11" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_01_30_nA" time="3.497" timestamp="2021-08-11T09:47:15" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_02_100_nA" time="5.002" timestamp="2021-08-11T09:47:20" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_03_300_nA" time="5.002" timestamp="2021-08-11T09:47:25" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_04_1_uA" time="4.992" timestamp="2021-08-11T09:47:30" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_05_3_uA" time="5.013" timestamp="2021-08-11T09:47:35" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_06_10_uA" time="4.997" timestamp="2021-08-11T09:47:40" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_07_30_uA" time="4.996" timestamp="2021-08-11T09:47:45" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_08_100_uA" time="5.000" timestamp="2021-08-11T09:47:50" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_09_300_uA" time="5.014" timestamp="2021-08-11T09:47:55" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_10_1_mA" time="4.995" timestamp="2021-08-11T09:48:00" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_11_10_mV" time="4.994" timestamp="2021-08-11T09:48:05" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_excitation_a_set_THEN_can_be_read_back_12_1_mV" time="4.997" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_range_set_THEN_can_be_read_back_0_0_" time="0.055" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_range_set_THEN_can_be_read_back_1_0_01_" time="4.924" timestamp="2021-08-11T09:48:15" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_range_set_THEN_can_be_read_back_2_0_1_" time="5.016" timestamp="2021-08-11T09:48:20" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_range_set_THEN_can_be_read_back_3_1_" time="4.984" timestamp="2021-08-11T09:48:25" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_range_set_THEN_can_be_read_back_4_10_" time="5.012" timestamp="2021-08-11T09:48:30" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_range_set_THEN_can_be_read_back_5_100_" time="5.006" timestamp="2021-08-11T09:48:35" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_initialise_with_incorrect_macro_THEN_pv_is_in_alarm" time="18.358" timestamp="2021-08-11T09:48:53" file="system_tests\tests\lakeshore340.py" line="152"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_initialise_with_invalid_file_THEN_pv_is_in_alarm" time="30.481" timestamp="2021-08-11T09:49:23" file="system_tests\tests\lakeshore340.py" line="160"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_loop_turned_on_or_off_THEN_can_be_read_back_0_On" time="4.153" timestamp="2021-08-11T09:49:28" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_loop_turned_on_or_off_THEN_can_be_read_back_1_Off" time="4.985" timestamp="2021-08-11T09:49:33" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_max_temperature_set_THEN_can_be_read_back_0_0_0" time="0.109" timestamp="2021-08-11T09:49:33" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_max_temperature_set_THEN_can_be_read_back_1_0_0001" time="4.893" timestamp="2021-08-11T09:49:38" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_max_temperature_set_THEN_can_be_read_back_2_1_0001" time="5.006" timestamp="2021-08-11T09:49:43" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_max_temperature_set_THEN_can_be_read_back_3_123_456" time="4.995" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_00__P_0_0_" time="0.050" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_01__P_0_0001_" time="4.935" timestamp="2021-08-11T09:49:53" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_02__P_1_0001_" time="5.011" timestamp="2021-08-11T09:49:58" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_03__P_123_456_" time="4.990" timestamp="2021-08-11T09:50:03" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_04__I_0_0_" time="0.063" timestamp="2021-08-11T09:50:03" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_05__I_0_0001_" time="4.949" timestamp="2021-08-11T09:50:08" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_06__I_1_0001_" time="4.995" timestamp="2021-08-11T09:50:13" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_07__I_123_456_" time="4.987" timestamp="2021-08-11T09:50:18" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_08__D_0_0_" time="0.065" timestamp="2021-08-11T09:50:18" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_09__D_0_0001_" time="0.059" timestamp="2021-08-11T09:50:18" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_0_Manual_PID" time="0.064" timestamp="2021-08-11T09:50:18" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_10__D_1_0001_" time="4.819" timestamp="2021-08-11T09:50:23" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_11__D_123_456_" time="5.007" timestamp="2021-08-11T09:50:28" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_1_Zone" time="4.990" timestamp="2021-08-11T09:50:33" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_2_Open_Loop" time="5.006" timestamp="2021-08-11T09:50:38" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_3_Autotune_PID" time="4.995" timestamp="2021-08-11T09:50:43" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_4_Autotune_PI" time="5.008" timestamp="2021-08-11T09:50:48" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_pid_settings_changed_THEN_can_be_read_back_5_Autotune_P" time="4.995" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_tset_is_changed_THEN_readback_updates_0_0_0" time="0.058" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_tset_is_changed_THEN_readback_updates_1_0_0001" time="4.922" timestamp="2021-08-11T09:50:58" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_tset_is_changed_THEN_readback_updates_2_1_0001" time="5.003" timestamp="2021-08-11T09:51:03" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_tset_is_changed_THEN_readback_updates_3_123_456" time="5.014" timestamp="2021-08-11T09:51:08" file="system_tests\tests\lakeshore340.py" line="531"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_use_valid_file_THEN_threshold_file_is_none" time="0.002" timestamp="2021-08-11T09:51:08" file="system_tests\tests\lakeshore340.py" line="142"/>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_power_set_via_backdoor_THEN_can_be_read_back_0_0" time="0.003" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_power_set_via_backdoor_THEN_can_be_read_back_1_0_01" time="0.002" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_power_set_via_backdoor_THEN_can_be_read_back_2_12_34" time="0.000" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_power_set_via_backdoor_THEN_can_be_read_back_3_99_99" time="0.001" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_heater_power_set_via_backdoor_THEN_can_be_read_back_4_100_0" time="0.000" timestamp="2021-08-11T09:48:10" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_00__A_0_0_" time="0.003" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_01__A_0_0001_" time="0.002" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_02__A_1_0001_" time="0.001" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_03__A_123_456_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_04__B_0_0_" time="0.001" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_05__B_0_0001_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_06__B_1_0001_" time="0.001" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_07__B_123_456_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_08__C_0_0_" time="0.001" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_09__C_0_0001_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_10__C_1_0001_" time="0.001" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_11__C_123_456_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_12__D_0_0_" time="0.001" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_13__D_0_0001_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_14__D_1_0001_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back_15__D_123_456_" time="0.000" timestamp="2021-08-11T09:49:48" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_00__A_0_0_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_01__A_0_0001_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_02__A_1_0001_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_03__A_123_456_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_04__B_0_0_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_05__B_0_0001_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_06__B_1_0001_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_07__B_123_456_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_08__C_0_0_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_09__C_0_0001_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_10__C_1_0001_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_11__C_123_456_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_12__D_0_0_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_13__D_0_0001_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_14__D_1_0001_" time="0.001" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+	<testcase classname="tests.lakeshore340.Lakeshore340Tests" name="test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back_15__D_123_456_" time="0.000" timestamp="2021-08-11T09:50:53" file="system_tests\tests\lakeshore340.py" line="531">
+		<skipped type="skip" message="Lewis backdoor not available in recsim"/>
+	</testcase>
+</testsuite>
