@@ -1,8 +1,8 @@
 file Lakeshore340_channel.template {
 
-  pattern {PORT, P, CHAN}
-  {"\$(PORT)", "\$(P)", "A"}
-  {"\$(PORT)", "\$(P)", "B"}
-  {"\$(PORT)", "\$(P)", "C"}
-  {"\$(PORT)", "\$(P)", "D"}
+  pattern {PORT, P, CHAN, SENS_NUM}
+  {"\$(PORT)", "\$(P)", "A", "0"}
+  {"\$(PORT)", "\$(P)", "B", "1"}
+  {"\$(PORT)", "\$(P)", "C", "2"}
+  {"\$(PORT)", "\$(P)", "D", "3"}
 }

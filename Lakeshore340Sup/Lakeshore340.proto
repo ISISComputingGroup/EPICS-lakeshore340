@@ -1,7 +1,12 @@
 Terminator = CR LF;
 
-getTempA {
-  out "KRDG? 0";
+getTemp {
+  out "KRDG? \$1";
+  in "%e";
+}
+
+getRdg {
+  out "SRDG? \$1";
   in "%e";
 }
 
@@ -11,41 +16,6 @@ setTempA {
 
 getSetTempA {
   out "SETP? 1";
-  in "%e";
-}
-
-getTempB {
-  out "KRDG? 1";
-  in "%e";
-}
-
-getTempC {
-  out "KRDG? 2";
-  in "%e";
-}
-
-getTempD {
-  out "KRDG? 3";
-  in "%e";
-}
-
-getRdgA {
-  out "SRDG? 0";
-  in "%e";
-}
-
-getRdgB {
-  out "SRDG? 1";
-  in "%e";
-}
-
-getRdgC {
-  out "SRDG? 2";
-  in "%e";
-}
-
-getRdgD {
-  out "SRDG? 3";
   in "%e";
 }
 
