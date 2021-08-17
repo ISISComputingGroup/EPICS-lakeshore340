@@ -1,4 +1,4 @@
-file Lakeshore340_channel.template {
+file Lakeshore3X0_channel.template {
 
   pattern {PORT, P, CHAN, SENS_NUM}
   {"\$(PORT)", "\$(P)", "A", "0"}
