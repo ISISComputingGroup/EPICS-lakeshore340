@@ -10,12 +10,12 @@ getRdg {
   in "%e";
 }
 
-setTempA {
-  out "SETP 1,%f";
+setTemp {
+  out "SETP \$1,%f";
 }
 
-getSetTempA {
-  out "SETP? 1";
+getSetTemp {
+  out "SETP? \$1";
   in "%e";
 }
 
@@ -53,11 +53,11 @@ getD {
 }
 
 setPidMode {
-  out "CMODE 1,%d";
+  out "CMODE \$1,%d";
 }
 
 getPidMode {
-  out "CMODE? 1";
+  out "CMODE? \$1";
   in "%d";
 }
 
@@ -73,11 +73,11 @@ getLoop {
 }
 
 setMaxTemp {
-  out "CLIMIT 1,%f";
+  out "CLIMIT \$1,%f";
 }
 
 getMaxTemp {
-  out "CLIMIT? 1";
+  out "CLIMIT? \$1";
   in "%e,%*e,%*e,%*e,%*e";
 }
 

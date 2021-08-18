@@ -25,7 +25,7 @@ record(bo, "$(P)DISABLE")
 record(ao, "$(P)A:TEMP:SP") {
     field(DESC, "Temperature setpoint")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setTempA $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setTemp(1) $(PORT)")
     field(PREC, "5")
     field(EGU, "K")
     
@@ -46,7 +46,7 @@ alias("$(P)A:TEMP:SP", "$(P)D:TEMP:SP")
 record(ai, "$(P)A:TEMP:SP:RBV") {
     field(DESC, "Temperature setpoint readback")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getSetTempA $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getSetTemp(1) $(PORT)")
     field(SCAN, "5 second")
     field(PREC, "5")
     field(EGU, "K")
@@ -167,7 +167,7 @@ record(mbbi, "$(P)PIDMODE") {
     field(DESC, "PID mode")
     field(SCAN, "5 second")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getPidMode $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getPidMode(1) $(PORT)")
     
     field(ZRST, "Manual PID")
     field(ZRVL, "1")
@@ -192,7 +192,7 @@ record(mbbi, "$(P)PIDMODE") {
 
 record(mbbo, "$(P)PIDMODE:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setPidMode $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setPidMode(1) $(PORT)")
     
     field(ZRST, "Manual PID")
     field(ZRVL, "1")
@@ -264,7 +264,7 @@ record(bo, "$(P)SIM:LOOP") {}
 record(ai, "$(P)TEMP:MAX") {
     field(DESC, "TSet limit")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getMaxTemp $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getMaxTemp(1) $(PORT)")
     field(SCAN, "5 second")
     field(EGU, "K")
     field(PREC, "5")
@@ -279,7 +279,7 @@ record(ai, "$(P)TEMP:MAX") {
 
 record(ao, "$(P)TEMP:MAX:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setMaxTemp $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setMaxTemp(1) $(PORT)")
     field(EGU, "K")
     field(PREC, "5")
     
