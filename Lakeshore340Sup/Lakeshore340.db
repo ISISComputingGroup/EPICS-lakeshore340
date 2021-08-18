@@ -74,7 +74,7 @@ record(fanout, "$(P)A:TEMP:SP:_FAN") {
 record(ai, "$(P)P") {
     field(DESC, "PID Proportional")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getP $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getP(1) $(PORT)")
     field(SCAN, "5 second")
     field(PREC, "3")
     field(EGU, "")
@@ -104,7 +104,7 @@ record(ao, "$(P)SIM:P"){}
 record(ai, "$(P)I") {
     field(DESC, "PID Integral")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getI $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getI(1) $(PORT)")
     field(SCAN, "5 second")
     field(PREC, "3")
     field(EGU, "")
@@ -134,7 +134,7 @@ record(ao, "$(P)SIM:I"){}
 record(longin, "$(P)D") {
     field(DESC, "PID Derivative")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getD $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getD(1) $(PORT)")
     field(SCAN, "5 second")
     field(EGU, "")
     
@@ -293,13 +293,15 @@ record(ao, "$(P)TEMP:MAX:SP") {
 record(ao, "$(P)SIM:TEMP:MAX"){}
 
 
+#### 340 ONLY ####
+
 # Heater output
 
 
 record(ai, "$(P)OUTPUT") {
     field(DESC, "Heater output")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getOutput $(PORT)")
+    field(INP, "@Lakeshore340.proto getOutput() $(PORT)")
     field(SCAN, "1 second")
     field(EGU, "%")
     field(PREC, "2")
@@ -321,7 +323,7 @@ record(ao, "$(P)SIM:OUTPUT"){}
 record(mbbi, "$(P)RANGE") {
     field(DESC, "Heater range")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getRange $(PORT)")
+    field(INP, "@Lakeshore340.proto getRange $(PORT)")
     field(SCAN, "5 second")
     
     field(ZRST, "0%")
@@ -341,7 +343,7 @@ record(mbbi, "$(P)RANGE") {
 
 record(mbbo, "$(P)RANGE:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setRange $(PORT)")
+    field(OUT, "@Lakeshore340.proto setRange $(PORT)")
     
     field(ZRST, "0%")
     field(ONST, "0.01%")
@@ -364,7 +366,7 @@ record(mbbo, "$(P)SIM:RANGE") {}
 record(mbbi, "$(P)EXCITATIONA") {
     field(DESC, "Excitation Setting")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getExA $(PORT)")
+    field(INP, "@Lakeshore340.proto getExA $(PORT)")
     field(SCAN, "5 second")
     field(PINI, "YES")
 
@@ -395,7 +397,7 @@ record(mbbi, "$(P)EXCITATIONA") {
 record(mbbo, "$(P)EXCITATIONA:SP") {
     field(DESC, "Excitation Setting SP")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setExA $(PORT)")
+    field(OUT, "@Lakeshore340.proto setExA $(PORT)")
 
     # If changing these values please also
     # change the values in the lakeshore340excitations.h file

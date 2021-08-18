@@ -6,6 +6,7 @@ include $(TOP)/configure/CONFIG
 DB += Lakeshore340.db
 DB += Lakeshore3X0_channel.db
 DATA += Lakeshore3X0.proto
+DATA += Lakeshore340.proto
 
 LIBRARY_IOC += Lakeshore340
 DBD += Lakeshore340.dbd

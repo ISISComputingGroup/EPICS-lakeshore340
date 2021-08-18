@@ -26,7 +26,7 @@ setP {
 }
 
 getP {
-  out "PID? 1";
+  out "PID? \$1";
   in "%f,%*f,%*d";
 }
 
@@ -37,7 +37,7 @@ setI {
 }
 
 getI {
-  out "PID? 1";
+  out "PID? \$1";
   in "%*f,%f,%*d";
 }
 
@@ -48,7 +48,7 @@ setD {
 }
 
 getD {
-  out "PID? 1";
+  out "PID? \$1";
   in "%*f,%*f,%d";
 }
 
@@ -81,25 +81,3 @@ getMaxTemp {
   in "%e,%*e,%*e,%*e,%*e";
 }
 
-getOutput {
-  out "HTR?";
-  in "%e";
-}
-
-getRange {
-  out "RANGE?";
-  in "%d";
-}
-
-setRange {
-  out "RANGE %d";
-}
-
-getExA {
-  out "INTYPE? A";
-  in "%d";
-}
-
-setExA {
-  out "INTYPE A, 1, , , , %d";
-}

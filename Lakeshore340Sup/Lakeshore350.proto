@@ -1,0 +1,15 @@
+Terminator = CR LF;
+
+getOutput {
+  out "HTR?\$1";
+  in "%e";
+}
+
+getRange {
+  out "RANGE?\$1";
+  in "%d";
+}
+
+setRange {
+  out "RANGE\$1 %d";
+}

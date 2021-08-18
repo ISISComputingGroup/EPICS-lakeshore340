@@ -1,7 +1,7 @@
 record(ai, "$(P)$(CHAN):TEMP") {
     field(DESC, "Temperature Sensor $(CHAN)")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore340.proto getTemp($(SENS_NUM)) $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getTemp($(SENS_NUM)) $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
     field(EGU, "K")
@@ -18,7 +18,7 @@ record(ai, "$(P)$(CHAN):TEMP") {
 record(ai, "$(P)$(CHAN):RDG") {
     field(DESC, "Measurement Sensor $(CHAN)")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore340.proto getRdg($(SENS_NUM)) $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getRdg($(SENS_NUM)) $(PORT)")
     field(SCAN, "1 second")
     field(PREC, "5")
     field(EGU, "")
