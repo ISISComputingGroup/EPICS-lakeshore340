@@ -52,7 +52,7 @@ record(ai, "$(P)$(CHAN):P") {
 record(ao, "$(P)$(CHAN):P:SP") {
     field(DESC, "PID Proportional")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setP($(P)$(CHAN),$(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setP($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(PREC, "3")
     field(EGU, "")
     
@@ -82,7 +82,7 @@ record(ai, "$(P)$(CHAN):I") {
 record(ao, "$(P)$(CHAN):I:SP") {
     field(DESC, "PID Integral")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setI($(P)$(CHAN),$(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setI($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(PREC, "3")
     field(EGU, "")
     
@@ -111,7 +111,7 @@ record(longin, "$(P)$(CHAN):D") {
 record(longout, "$(P)$(CHAN):D:SP") {
     field(DESC, "PID Derivative")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setD($(P)$(CHAN),$(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setD($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(EGU, "")
     
     field(SIML, "$(P)SIM")
@@ -192,7 +192,7 @@ record(longin, "$(P)$(CHAN):_POWERUPENABLE") {}
 record(bi, "$(P)$(CHAN):LOOP") {
     field(DESC, "PID loop on/off")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getLoop($(P)$(CHAN),$(CTRL_LOOP)) $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getLoop($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(SCAN, "5 second")
     field(ZNAM, "Off")
     field(ONAM, "On")
@@ -207,7 +207,7 @@ record(bi, "$(P)$(CHAN):LOOP") {
 
 record(bo, "$(P)$(CHAN):LOOP:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setLoop($(P)$(CHAN),$(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setLoop($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(FLNK, "$(P)$(CHAN):LOOP")
