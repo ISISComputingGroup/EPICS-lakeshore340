@@ -230,7 +230,7 @@ record(longin, "$(P)_POWERUPENABLE") {}
 record(bi, "$(P)LOOP") {
     field(DESC, "PID loop on/off")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getLoop($(P)) $(PORT)")
+    field(INP, "@Lakeshore3X0.proto getLoop($(P),1) $(PORT)")
     field(SCAN, "5 second")
     field(ZNAM, "Off")
     field(ONAM, "On")
@@ -245,7 +245,7 @@ record(bi, "$(P)LOOP") {
 
 record(bo, "$(P)LOOP:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setLoop($(P)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setLoop($(P),1) $(PORT)")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(FLNK, "$(P)LOOP")
@@ -301,7 +301,7 @@ record(ao, "$(P)SIM:TEMP:MAX"){}
 record(ai, "$(P)OUTPUT") {
     field(DESC, "Heater output")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore340.proto getOutput() $(PORT)")
+    field(INP, "@Lakeshore340.proto getOutput $(PORT)")
     field(SCAN, "1 second")
     field(EGU, "%")
     field(PREC, "2")
