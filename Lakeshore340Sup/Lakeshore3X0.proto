@@ -20,8 +20,8 @@ getSetTemp {
 }
 
 setP {
-  out "PID 1,%f,%(\$1I)f,%(\$1D)d";
-  out "PID? 1";
+  out "PID \$2,%f,%(\$1I)f,%(\$1D)d";
+  out "PID? \$2";
   in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
 }
 
@@ -31,8 +31,8 @@ getP {
 }
 
 setI {
-  out "PID 1,%(\$1P)f,%f,%(\$1D)d";
-  out "PID? 1";
+  out "PID \$2,%(\$1P)f,%f,%(\$1D)d";
+  out "PID? \$2";
   in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
 }
 
@@ -42,8 +42,8 @@ getI {
 }
 
 setD {
-  out "PID 1,%(\$1P)f,%(\$1I)f,%d";
-  out "PID? 1";
+  out "PID \$2,%(\$1P)f,%(\$1I)f,%d";
+  out "PID? \$2";
   in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
 }
 

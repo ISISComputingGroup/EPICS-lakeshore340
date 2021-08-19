@@ -90,7 +90,7 @@ record(ai, "$(P)P") {
 record(ao, "$(P)P:SP") {
     field(DESC, "PID Proportional")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setP($(P)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setP($(P),1) $(PORT)")
     field(PREC, "3")
     field(EGU, "")
     
@@ -120,7 +120,7 @@ record(ai, "$(P)I") {
 record(ao, "$(P)I:SP") {
     field(DESC, "PID Integral")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setI($(P)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setI($(P),1) $(PORT)")
     field(PREC, "3")
     field(EGU, "")
     
@@ -149,7 +149,7 @@ record(longin, "$(P)D") {
 record(longout, "$(P)D:SP") {
     field(DESC, "PID Derivative")
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setD($(P)) $(PORT)")
+    field(OUT, "@Lakeshore3X0.proto setD($(P),1) $(PORT)")
     field(EGU, "")
     
     field(SIML, "$(P)SIM")
