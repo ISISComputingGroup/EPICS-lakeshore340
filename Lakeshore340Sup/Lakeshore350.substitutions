@@ -1,4 +1,4 @@
-file Lakeshore350_control.template {
+file Lakeshore350.template {
 
   pattern {PORT, P, CHAN, CTRL_LOOP}
   {"\$(PORT)", "\$(P)", "A", "1"}
