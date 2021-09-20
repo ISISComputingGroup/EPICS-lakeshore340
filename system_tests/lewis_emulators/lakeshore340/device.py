@@ -24,16 +24,7 @@ class SimulatedLakeshore340(StateMachineDevice):
         Initialize all of the device's attributes.
         """
 
-        self.channels = {k:SimulatedControlChannel() for k in ["a", "b", "c", "d"]}
-
-        self.temp_a = 0
-        self.temp_b = 0
-        self.temp_c = 0
-        self.temp_d = 0
-        self.measurement_a = 0
-        self.measurement_b = 0
-        self.measurement_c = 0
-        self.measurement_d = 0
+        self.channels = {k:SimulatedControlChannel() for k in ["A", "B", "C", "D"]}
 
         self.tset_a = 0
         self.tset_b = 0 
@@ -49,6 +40,12 @@ class SimulatedLakeshore340(StateMachineDevice):
         self.heater_output = 0
         self.heater_range = 0
         self.excitationa = 0
+    
+    def set_temp(self, channel_name, val):
+        self.channels[channel_name].temp = val
+
+    def set_meas(self, channel_name, val):
+        self.channels[channel_name].measurement = val
 
     def _get_state_handlers(self):
         return {'default': DefaultState()}

@@ -1,8 +1,9 @@
+import enum
 from lewis.adapters.stream import StreamInterface
 from lewis.core.logging import has_log
 from lewis.utils.command_builder import CmdBuilder
 
-
+_CONTROL_CHANNEL_TO_INDICES = {k:v for k,v in enumerate(["A", "B", "C", "D"])}
 _CONTROL_CHANNEL, _CONTROL_CHANNEL_INDEX = "B", 1
 _SENSOR_UNITS = 1
 _POWERUPENABLE = 1
@@ -13,15 +14,8 @@ class Lakeshore340StreamInterface(StreamInterface):
 
     # Commands that we expect via serial during normal operation
     commands = {
-        CmdBuilder("get_temperature_a").escape("KRDG? 0").eos().build(),
-        CmdBuilder("get_temperature_b").escape("KRDG? 1").eos().build(),
-        CmdBuilder("get_temperature_c").escape("KRDG? 2").eos().build(),
-        CmdBuilder("get_temperature_d").escape("KRDG? 3").eos().build(),
-
-        CmdBuilder("get_measurement_a").escape("SRDG? 0").eos().build(),
-        CmdBuilder("get_measurement_b").escape("SRDG? 1").eos().build(),
-        CmdBuilder("get_measurement_c").escape("SRDG? 2").eos().build(),
-        CmdBuilder("get_measurement_d").escape("SRDG? 3").eos().build(),
+        CmdBuilder("get_temperature").escape("KRDG? ").int().eos().build(),
+        CmdBuilder("get_measurement").escape("SRDG? ").int().eos().build(),
 
         CmdBuilder("set_tset").escape("SETP {},".format(_CONTROL_CHANNEL_INDEX)).float().eos().build(),
         CmdBuilder("get_tset").escape("SETP? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
@@ -58,29 +52,11 @@ class Lakeshore340StreamInterface(StreamInterface):
         self.log.error(err_string)
         return err_string
 
-    def get_temperature_a(self):
-        return self._device.temp_a
+    def get_temperature(self, channel_num):
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[channel_num]].temp
 
-    def get_temperature_b(self):
-        return self._device.temp_b
-
-    def get_temperature_c(self):
-        return self._device.temp_c
-
-    def get_temperature_d(self):
-        return self._device.temp_d
-
-    def get_measurement_a(self):
-        return self._device.measurement_a
-
-    def get_measurement_b(self):
-        return self._device.measurement_b
-
-    def get_measurement_c(self):
-        return self._device.measurement_c
-
-    def get_measurement_d(self):
-        return self._device.measurement_d
+    def get_measurement(self,channel_num):
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[channel_num]].measurement
 
     def set_tset(self, val):
         self._device.tset_a = float(val)

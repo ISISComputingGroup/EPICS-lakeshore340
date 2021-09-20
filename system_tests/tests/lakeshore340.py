@@ -87,14 +87,14 @@ class Lakeshore340Tests(unittest.TestCase):
     @parameterized.expand(parameterized_list(itertools.product(SENSORS, TEST_TEMPERATURES)))
     @skip_if_recsim("Lewis backdoor not available in recsim")
     def test_WHEN_temperature_set_via_backdoor_THEN_it_can_be_read_back(self, _, sensor, value):
-        self._lewis.backdoor_set_on_device("temp_{}".format(sensor.lower()), value)
-        self.ca.assert_that_pv_is_number("{}:TEMP".format(sensor.upper()), value)
+        self._lewis.backdoor_run_function_on_device("set_temp", (sensor, value))
+        self.ca.assert_that_pv_is_number(f"{sensor}:TEMP", value)
 
     @parameterized.expand(parameterized_list(itertools.product(SENSORS, TEST_TEMPERATURES)))
     @skip_if_recsim("Lewis backdoor not available in recsim")
     def test_WHEN_measurement_set_via_backdoor_THEN_it_can_be_read_back(self, _, sensor, value):
-        self._lewis.backdoor_set_on_device("measurement_{}".format(sensor.lower()), value)
-        self.ca.assert_that_pv_is_number("{}:RDG".format(sensor.upper()), value)
+        self._lewis.backdoor_run_function_on_device("set_meas", (sensor, value))
+        self.ca.assert_that_pv_is_number(f"{sensor}:RDG", value)
 
     @parameterized.expand(parameterized_list(TEST_TEMPERATURES))
     def test_WHEN_tset_is_changed_THEN_readback_updates(self, _, val):
@@ -171,7 +171,7 @@ class Lakeshore340Tests(unittest.TestCase):
         self.ca.set_pv_value(THRESHOLD_EXCITATIONS_PV, thresholds_excitations)
         self.ca.set_pv_value(THRESHOLDS_DELAY_CHANGE_PV, delay_change)
         self.ca.set_pv_value(THRESHOLDS_ERROR_PV, error)
-        self._lewis.backdoor_set_on_device("temp_a", temp)
+        self._lewis.backdoor_set_on_device("channels[\"A\"].temp", temp)
 
     def assert_threshold_values(
             self, thresholds_excitations, thresholds_temp, excitationa, error, error_severity, delay_change):
@@ -199,7 +199,7 @@ class Lakeshore340Tests(unittest.TestCase):
             expected_thresholds_excitation, expected_thresholds_temp, "Off", "No Error", "NO_ALARM", "YES"
         )
         # Make temperature equal setpoint
-        self._lewis.backdoor_set_on_device("temp_a", new_temp_sp)
+        self._lewis.backdoor_set_on_device("channels[\"A\"].temp", new_temp_sp)
         # Confirm Excitations is set correctly
         self.assert_threshold_values(
             expected_thresholds_excitation, expected_thresholds_temp, expected_thresholds_excitation,
@@ -223,7 +223,7 @@ class Lakeshore340Tests(unittest.TestCase):
                 self.ca.assert_setting_setpoint_sets_readback(
                     temp_sp, readback_pv="A:TEMP:SP:RBV", set_point_pv="A:TEMP:SP"
                 )
-                self._lewis.backdoor_set_on_device("temp_a", temp_sp)
+                self._lewis.backdoor_set_on_device("channels[\"A\"].temp", temp_sp)
                 # Assert nothing has changed
                 self.assert_threshold_values(
                     excitation, temp, excitation, expected_error, expected_error_severity, "NO"
