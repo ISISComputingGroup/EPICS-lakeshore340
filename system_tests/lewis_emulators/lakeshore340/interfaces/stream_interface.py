@@ -83,10 +83,10 @@ class Lakeshore340StreamInterface(StreamInterface):
         return self._device.measurement_d
 
     def set_tset(self, val):
-        self._device.tset = float(val)
+        self._device.tset_a = float(val)
 
     def get_tset(self):
-        return self._device.tset
+        return self._device.tset_a
 
     def set_pid(self, p, i, d):
         self._device.p, self._device.i, self._device.d = p, i, d
