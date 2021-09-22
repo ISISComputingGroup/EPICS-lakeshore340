@@ -1,4 +1,3 @@
-
 # Temperature setpoint
 
 record(ao, "$(P)$(CHAN):TEMP:SP") {
@@ -249,7 +248,7 @@ record(ao, "$(P)$(CHAN):TEMP:MAX:SP") {
     field(SIOL, "$(P)SIM:$(CHAN):TEMP:MAX")
     field(SDIS, "$(P)DISABLE")
     
-    field(FLNK, "$(P)TEMP:MAX")
+    field(FLNK, "$(P)$(CHAN):TEMP:MAX")
 }
 
 record(ao, "$(P)SIM:$(CHAN):TEMP:MAX"){}
@@ -311,7 +310,7 @@ record(mbbo, "$(P)$(CHAN):RANGE:SP") {
     field(FRST, "10%")
     field(FVST, "100%")
     
-    field(FLNK, "$(P)RANGE")
+    field(FLNK, "$(P)$(CHAN):RANGE")
     
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:$(CHAN):RANGE")

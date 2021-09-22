@@ -106,6 +106,20 @@ class Lakeshore340Tests(unittest.TestCase):
             value = int(value)  # Derivative is only allowed to take integer values.
 
         self.ca.assert_setting_setpoint_sets_readback(value, setting)
+    
+    def test_GIVEN_lakeshore_350_WHEN_pid_settings_changed_on_each_channel_THEN_can_be_read_back(self):
+        with self._ioc.start_with_macros({"IS_MODEL_350": "YES"}, "A:TEMP"):
+            # Doing this here rather than parametrizing for the sake of the IOC test speed and having to restart the IOC 3 times. 
+            for sensor, setting, value in itertools.product(SENSORS, PID_SETTINGS, PID_TEST_VALUES):
+                if setting == "D":
+                    value = int(value)  # Derivative is only allowed to take integer values.
+                self.ca.assert_setting_setpoint_sets_readback(value, f"{sensor}:{setting}")
+
+    def test_GIVEN_lakeshore_350_WHEN_tset_set_on_each_channel_THEN_can_be_read_back(self):
+        with self._ioc.start_with_macros({"IS_MODEL_350": "YES"}, "A:TEMP"):
+            # Doing this here rather than parametrizing for the sake of the IOC test speed and having to restart the IOC 3 times. 
+            for sensor, value in itertools.product(SENSORS, TEST_TEMPERATURES):
+                self.ca.assert_setting_setpoint_sets_readback(value, readback_pv=f"{sensor}:TEMP:SP:RBV", set_point_pv=f"{sensor}:TEMP:SP")
 
     @parameterized.expand(parameterized_list(PID_MODES))
     def test_WHEN_pid_settings_changed_THEN_can_be_read_back(self, _, mode):
