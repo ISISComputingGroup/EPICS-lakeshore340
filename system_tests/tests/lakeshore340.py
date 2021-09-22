@@ -107,6 +107,7 @@ class Lakeshore340Tests(unittest.TestCase):
 
         self.ca.assert_setting_setpoint_sets_readback(value, setting)
     
+    @skip_if_recsim("Lewis backdoor not available in recsim")
     def test_GIVEN_lakeshore_350_WHEN_pid_settings_changed_on_each_channel_THEN_can_be_read_back(self):
         with self._ioc.start_with_macros({"IS_MODEL_350": "YES"}, "A:TEMP"):
             # Doing this here rather than parametrizing for the sake of the IOC test speed and having to restart the IOC 3 times. 
@@ -115,6 +116,7 @@ class Lakeshore340Tests(unittest.TestCase):
                     value = int(value)  # Derivative is only allowed to take integer values.
                 self.ca.assert_setting_setpoint_sets_readback(value, f"{sensor}:{setting}")
 
+    @skip_if_recsim("Lewis backdoor not available in recsim")
     def test_GIVEN_lakeshore_350_WHEN_tset_set_on_each_channel_THEN_can_be_read_back(self):
         with self._ioc.start_with_macros({"IS_MODEL_350": "YES"}, "A:TEMP"):
             # Doing this here rather than parametrizing for the sake of the IOC test speed and having to restart the IOC 3 times. 
