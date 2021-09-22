@@ -167,7 +167,7 @@ record(mbbi, "$(P)PIDMODE") {
     field(DESC, "PID mode")
     field(SCAN, "5 second")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getPidMode(1) $(PORT)")
+    field(INP, "@Lakeshore340.proto getPidMode(1) $(PORT)")
     
     field(ZRST, "Manual PID")
     field(ZRVL, "1")
@@ -192,7 +192,7 @@ record(mbbi, "$(P)PIDMODE") {
 
 record(mbbo, "$(P)PIDMODE:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setPidMode(1) $(PORT)")
+    field(OUT, "@Lakeshore340.proto setPidMode(1) $(PORT)")
     
     field(ZRST, "Manual PID")
     field(ZRVL, "1")
@@ -230,7 +230,7 @@ record(longin, "$(P)_POWERUPENABLE") {}
 record(bi, "$(P)LOOP") {
     field(DESC, "PID loop on/off")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getLoop($(P),1) $(PORT)")
+    field(INP, "@Lakeshore340.proto getLoop($(P),1) $(PORT)")
     field(SCAN, "5 second")
     field(ZNAM, "Off")
     field(ONAM, "On")
@@ -245,7 +245,7 @@ record(bi, "$(P)LOOP") {
 
 record(bo, "$(P)LOOP:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setLoop($(P),1) $(PORT)")
+    field(OUT, "@Lakeshore340.proto setLoop($(P),1) $(PORT)")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(FLNK, "$(P)LOOP")

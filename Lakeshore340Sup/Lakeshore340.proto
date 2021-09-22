@@ -31,3 +31,23 @@ getMaxTemp {
   out "CLIMIT? \$1";
   in "%e,%*e,%*e,%*e,%*e";
 }
+
+setPidMode {
+  out "CMODE \$1,%d";
+}
+
+getPidMode {
+  out "CMODE? \$1";
+  in "%d";
+}
+
+setLoop {
+  out "CSET? \$2";
+  in "%(\$1_CONTROLINPUT){A|B},%(\$1_SENSORUNITS)d,%*{0|1},%(\$1_POWERUPENABLE)d";
+  out "CSET 1,%(\$1_CONTROLINPUT){A|B},%(\$1_SENSORUNITS)d,%{0|1},%(\$1_POWERUPENABLE)d";
+}
+
+getLoop {
+  out "CSET? \$2";
+  in "%(\$1_CONTROLINPUT){A|B},%(\$1_SENSORUNITS)d,%{0|1},%(\$1_POWERUPENABLE)d";
+}

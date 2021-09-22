@@ -23,23 +23,20 @@ class Lakeshore340StreamInterface(StreamInterface):
         CmdBuilder("set_pid").escape("PID ").int().escape(",").float().escape(",").float().escape(",").int().eos().build(),
         CmdBuilder("get_pid").escape("PID? ").int().eos().build(),
 
-        CmdBuilder("set_pid_mode").escape("CMODE ").int().escape(",").int().eos().build(),
-        CmdBuilder("get_pid_mode").escape("CMODE? ").int().eos().build(),
-
-        CmdBuilder("set_control_mode")
-            .escape("CSET {},{},{},".format(_CONTROL_CHANNEL_INDEX, _CONTROL_CHANNEL, _SENSOR_UNITS)).int()
-            .escape(",{}".format(_POWERUPENABLE)).eos().build(),
-        CmdBuilder("get_control_mode").escape("CSET? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
-
-
         # 350 only
         CmdBuilder("set_temp_limit").escape("TLIMIT ").int().escape(",").float().eos().build(),
         CmdBuilder("get_temp_limit").escape("TLIMIT? ").int().eos().build(),
         CmdBuilder("get_heater_output_350").escape("HTR? ").int().eos().build(),
         CmdBuilder("set_heater_range_350").escape("RANGE ").int().escape(",").int().eos().build(),
-        CmdBuilder("get_heater_range_350").escape("RANGE?").int().eos().build(),
+        CmdBuilder("get_heater_range_350").escape("RANGE? ").int().eos().build(),
+        CmdBuilder("set_pid_mode").escape("OUTMODE ").int().escape(",").int().eos().build(),
+        CmdBuilder("get_pid_mode").escape("OUTMODE? ").int().eos().build(),
+        CmdBuilder("set_control_mode").escape("ANALOG ").int().escape(",{},{},".format(_CONTROL_CHANNEL, _SENSOR_UNITS)).int().escape(",{}".format(_POWERUPENABLE)).eos().build(),
+        CmdBuilder("get_control_mode").escape("ANALOG? ").int().eos().build(),
 
         # 340 only 
+        CmdBuilder("set_pid_mode").escape("CMODE ").int().escape(",").int().eos().build(),
+        CmdBuilder("get_pid_mode").escape("CMODE? ").int().eos().build(),
         CmdBuilder("set_temp_limit").escape("CLIMIT ").int().escape(",").float().eos().build(),
         CmdBuilder("get_temp_limit").escape("CLIMIT? ").int().eos().build(),
         CmdBuilder("get_heater_output").escape("HTR?").eos().build(),
@@ -47,6 +44,9 @@ class Lakeshore340StreamInterface(StreamInterface):
         CmdBuilder("get_heater_range").escape("RANGE?").eos().build(),
         CmdBuilder("get_excitation_a").escape("INTYPE? A").eos().build(),
         CmdBuilder("set_excitation_a").escape("INTYPE A, 1, , , , ").int().eos().build(),
+
+        CmdBuilder("set_control_mode").escape("CSET ").int().escape(",{},{},".format(_CONTROL_CHANNEL, _SENSOR_UNITS)).int().escape(",{}".format(_POWERUPENABLE)).eos().build(),
+        CmdBuilder("get_control_mode").escape("CSET? ").int().eos().build(),
     }
 
     in_terminator = "\r\n"
@@ -65,9 +65,13 @@ class Lakeshore340StreamInterface(StreamInterface):
         return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].measurement
 
     def set_tset(self, chan, val):
+        # Device is 1-indexed
+        chan -= 1
         self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].setpoint = float(val)
 
     def get_tset(self, chan):
+        # Device is 1-indexed
+        chan -= 1
         return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].setpoint
 
     def set_pid(self, chan, p, i, d):
@@ -92,11 +96,15 @@ class Lakeshore340StreamInterface(StreamInterface):
         chan -= 1
         self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].pid_mode = mode
 
-    def get_control_mode(self):
-        return "{},{},{},{}".format(_CONTROL_CHANNEL, _SENSOR_UNITS, 1 if self._device.loop_on else 0, _POWERUPENABLE)
+    def get_control_mode(self, chan):
+        # Device is 1-indexed
+        chan -= 1
+        return "{},{},{},{}".format(_CONTROL_CHANNEL, _SENSOR_UNITS, 1 if self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].loop_on else 0, _POWERUPENABLE)
 
-    def set_control_mode(self, val):
-        self._device.loop_on = bool(val)
+    def set_control_mode(self, chan, val):
+        # Device is 1-indexed
+        chan -= 1
+        self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].loop_on = bool(val)
 
     def set_temp_limit(self, chan, val):
         # Device is 1-indexed

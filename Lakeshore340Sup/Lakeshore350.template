@@ -129,7 +129,7 @@ record(mbbi, "$(P)$(CHAN):PIDMODE") {
     field(DESC, "PID mode")
     field(SCAN, "5 second")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getPidMode($(CTRL_LOOP)) $(PORT)")
+    field(INP, "@Lakeshore350.proto getPidMode($(CTRL_LOOP)) $(PORT)")
     
     field(ZRST, "Manual PID")
     field(ZRVL, "1")
@@ -154,7 +154,7 @@ record(mbbi, "$(P)$(CHAN):PIDMODE") {
 
 record(mbbo, "$(P)$(CHAN):PIDMODE:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setPidMode($(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore350.proto setPidMode($(CTRL_LOOP)) $(PORT)")
     
     field(ZRST, "Manual PID")
     field(ZRVL, "1")
@@ -192,7 +192,7 @@ record(longin, "$(P)$(CHAN):_POWERUPENABLE") {}
 record(bi, "$(P)$(CHAN):LOOP") {
     field(DESC, "PID loop on/off")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getLoop($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
+    field(INP, "@Lakeshore350.proto getLoop($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(SCAN, "5 second")
     field(ZNAM, "Off")
     field(ONAM, "On")
@@ -207,7 +207,7 @@ record(bi, "$(P)$(CHAN):LOOP") {
 
 record(bo, "$(P)$(CHAN):LOOP:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setLoop($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore350.proto setLoop($(P)$(CHAN):,$(CTRL_LOOP)) $(PORT)")
     field(ZNAM, "Off")
     field(ONAM, "On")
     field(FLNK, "$(P)$(CHAN):LOOP")
