@@ -22,3 +22,12 @@ getExA {
 setExA {
   out "INTYPE A, 1, , , , %d";
 }
+
+setMaxTemp {
+  out "CLIMIT \$1,%f";
+}
+
+getMaxTemp {
+  out "CLIMIT? \$1";
+  in "%e,%*e,%*e,%*e,%*e";
+}

@@ -26,7 +26,6 @@ class SimulatedLakeshore340(StateMachineDevice):
         self.channels = {k:SimulatedControlChannel() for k in ["A", "B", "C", "D"]}
 
         # For 340 we set these via the backdoor, which is near impossible with the channels dict, so leave in here 
-        self.pid_mode = 1
         self.loop_on = True
         self.max_temp = 0
         self.heater_output = 0

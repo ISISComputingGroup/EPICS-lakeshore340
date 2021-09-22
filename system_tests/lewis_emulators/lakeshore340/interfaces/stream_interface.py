@@ -23,22 +23,25 @@ class Lakeshore340StreamInterface(StreamInterface):
         CmdBuilder("set_pid").escape("PID ").int().escape(",").float().escape(",").float().escape(",").int().eos().build(),
         CmdBuilder("get_pid").escape("PID? ").int().eos().build(),
 
-        CmdBuilder("set_pid_mode").escape("CMODE {},".format(_CONTROL_CHANNEL_INDEX)).int().eos().build(),
-        CmdBuilder("get_pid_mode").escape("CMODE? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
+        CmdBuilder("set_pid_mode").escape("CMODE ").int().escape(",").int().eos().build(),
+        CmdBuilder("get_pid_mode").escape("CMODE? ").int().eos().build(),
 
         CmdBuilder("set_control_mode")
             .escape("CSET {},{},{},".format(_CONTROL_CHANNEL_INDEX, _CONTROL_CHANNEL, _SENSOR_UNITS)).int()
             .escape(",{}".format(_POWERUPENABLE)).eos().build(),
         CmdBuilder("get_control_mode").escape("CSET? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
 
-        CmdBuilder("set_temp_limit").escape("CLIMIT {},".format(_CONTROL_CHANNEL_INDEX)).float().eos().build(),
-        CmdBuilder("get_temp_limit").escape("CLIMIT? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
 
+        # 350 only
+        CmdBuilder("set_temp_limit").escape("TLIMIT ").int().escape(",").float().eos().build(),
+        CmdBuilder("get_temp_limit").escape("TLIMIT? ").int().eos().build(),
         CmdBuilder("get_heater_output_350").escape("HTR? ").int().eos().build(),
         CmdBuilder("set_heater_range_350").escape("RANGE ").int().escape(",").int().eos().build(),
         CmdBuilder("get_heater_range_350").escape("RANGE?").int().eos().build(),
 
         # 340 only 
+        CmdBuilder("set_temp_limit").escape("CLIMIT ").int().escape(",").float().eos().build(),
+        CmdBuilder("get_temp_limit").escape("CLIMIT? ").int().eos().build(),
         CmdBuilder("get_heater_output").escape("HTR?").eos().build(),
         CmdBuilder("set_heater_range").escape("RANGE ").int().eos().build(),
         CmdBuilder("get_heater_range").escape("RANGE?").eos().build(),
@@ -77,13 +80,17 @@ class Lakeshore340StreamInterface(StreamInterface):
         chan -= 1
         return "{},{},{}".format(self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].p, self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].i, self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].d)
 
-    def get_pid_mode(self):
-        return self._device.pid_mode
+    def get_pid_mode(self, chan):
+        # Device is 1-indexed
+        chan -= 1
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].pid_mode
 
-    def set_pid_mode(self, mode):
+    def set_pid_mode(self, chan, mode):
         if not 1 <= mode <= 6:
             raise ValueError("Mode must be 1-6")
-        self._device.pid_mode = mode
+        # Device is 1-indexed
+        chan -= 1
+        self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].pid_mode = mode
 
     def get_control_mode(self):
         return "{},{},{},{}".format(_CONTROL_CHANNEL, _SENSOR_UNITS, 1 if self._device.loop_on else 0, _POWERUPENABLE)
@@ -91,11 +98,15 @@ class Lakeshore340StreamInterface(StreamInterface):
     def set_control_mode(self, val):
         self._device.loop_on = bool(val)
 
-    def set_temp_limit(self, val):
-        self._device.max_temp = val
+    def set_temp_limit(self, chan, val):
+        # Device is 1-indexed
+        chan -= 1
+        self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].max_temp = val
 
-    def get_temp_limit(self):
-        return "{},0,0,0,0".format(self._device.max_temp)
+    def get_temp_limit(self, chan):
+        # Device is 1-indexed
+        chan -= 1
+        return f"{self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].max_temp},0,0,0,0"
 
     def get_heater_output(self):
         return "{:.2f}".format(self._device.heater_output)

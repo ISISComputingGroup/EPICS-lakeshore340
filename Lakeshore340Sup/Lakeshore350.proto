@@ -13,3 +13,12 @@ getRange {
 setRange {
   out "RANGE \$1 %d";
 }
+
+setMaxTemp {
+  out "TLIMIT \$1,%f";
+}
+
+getMaxTemp {
+  out "TLIMIT? \$1";
+  in "%e,%*e,%*e,%*e,%*e";
+}

@@ -226,7 +226,7 @@ record(bo, "$(P)SIM:$(CHAN):LOOP") {}
 record(ai, "$(P)$(CHAN):TEMP:MAX") {
     field(DESC, "TSet limit")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore3X0.proto getMaxTemp($(CTRL_LOOP)) $(PORT)")
+    field(INP, "@Lakeshore350.proto getMaxTemp($(CTRL_LOOP)) $(PORT)")
     field(SCAN, "5 second")
     field(EGU, "K")
     field(PREC, "5")
@@ -241,7 +241,7 @@ record(ai, "$(P)$(CHAN):TEMP:MAX") {
 
 record(ao, "$(P)$(CHAN):TEMP:MAX:SP") {
     field(DTYP, "stream")
-    field(OUT, "@Lakeshore3X0.proto setMaxTemp($(CTRL_LOOP)) $(PORT)")
+    field(OUT, "@Lakeshore350.proto setMaxTemp($(CTRL_LOOP)) $(PORT)")
     field(EGU, "K")
     field(PREC, "5")
     
