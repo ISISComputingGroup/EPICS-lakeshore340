@@ -1,4 +1,5 @@
 Terminator = CR LF;
+ExtraInput = Ignore;
 
 getOutput {
   out "HTR? \$1";
