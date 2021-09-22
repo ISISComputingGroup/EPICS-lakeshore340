@@ -17,11 +17,11 @@ class Lakeshore340StreamInterface(StreamInterface):
         CmdBuilder("get_temperature").escape("KRDG? ").int().eos().build(),
         CmdBuilder("get_measurement").escape("SRDG? ").int().eos().build(),
 
-        CmdBuilder("set_tset").escape("SETP {},".format(_CONTROL_CHANNEL_INDEX)).float().eos().build(),
-        CmdBuilder("get_tset").escape("SETP? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
+        CmdBuilder("set_tset").escape("SETP ").int().escape(",").float().eos().build(),
+        CmdBuilder("get_tset").escape("SETP? ").int().eos().build(),
 
-        CmdBuilder("set_pid").escape("PID {},".format(_CONTROL_CHANNEL_INDEX)).float().escape(",").float().escape(",").int().eos().build(),
-        CmdBuilder("get_pid").escape("PID? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
+        CmdBuilder("set_pid").escape("PID ").int().escape(",").float().escape(",").float().escape(",").int().eos().build(),
+        CmdBuilder("get_pid").escape("PID? ").int().eos().build(),
 
         CmdBuilder("set_pid_mode").escape("CMODE {},".format(_CONTROL_CHANNEL_INDEX)).int().eos().build(),
         CmdBuilder("get_pid_mode").escape("CMODE? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
@@ -34,11 +34,14 @@ class Lakeshore340StreamInterface(StreamInterface):
         CmdBuilder("set_temp_limit").escape("CLIMIT {},".format(_CONTROL_CHANNEL_INDEX)).float().eos().build(),
         CmdBuilder("get_temp_limit").escape("CLIMIT? {}".format(_CONTROL_CHANNEL_INDEX)).eos().build(),
 
-        CmdBuilder("get_heater_output").escape("HTR?").eos().build(),
+        CmdBuilder("get_heater_output_350").escape("HTR? ").int().eos().build(),
+        CmdBuilder("set_heater_range_350").escape("RANGE ").int().escape(",").int().eos().build(),
+        CmdBuilder("get_heater_range_350").escape("RANGE?").int().eos().build(),
 
+        # 340 only 
+        CmdBuilder("get_heater_output").escape("HTR?").eos().build(),
         CmdBuilder("set_heater_range").escape("RANGE ").int().eos().build(),
         CmdBuilder("get_heater_range").escape("RANGE?").eos().build(),
-
         CmdBuilder("get_excitation_a").escape("INTYPE? A").eos().build(),
         CmdBuilder("set_excitation_a").escape("INTYPE A, 1, , , , ").int().eos().build(),
     }
@@ -52,23 +55,27 @@ class Lakeshore340StreamInterface(StreamInterface):
         self.log.error(err_string)
         return err_string
 
-    def get_temperature(self, channel_num):
-        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[channel_num]].temp
+    def get_temperature(self, chan):
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].temp
 
-    def get_measurement(self,channel_num):
-        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[channel_num]].measurement
+    def get_measurement(self, chan):
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].measurement
 
-    def set_tset(self, val):
-        self._device.tset_a = float(val)
+    def set_tset(self, chan, val):
+        self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].setpoint = float(val)
 
-    def get_tset(self):
-        return self._device.tset_a
+    def get_tset(self, chan):
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].setpoint
 
-    def set_pid(self, p, i, d):
-        self._device.p, self._device.i, self._device.d = p, i, d
+    def set_pid(self, chan, p, i, d):
+        # Device is 1-indexed
+        chan -= 1
+        self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].p, self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].i, self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].d = p, i, d
 
-    def get_pid(self):
-        return "{},{},{}".format(self._device.p, self._device.i, self._device.d)
+    def get_pid(self, chan):
+        # Device is 1-indexed
+        chan -= 1
+        return "{},{},{}".format(self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].p, self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].i, self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].d)
 
     def get_pid_mode(self):
         return self._device.pid_mode
@@ -92,14 +99,31 @@ class Lakeshore340StreamInterface(StreamInterface):
 
     def get_heater_output(self):
         return "{:.2f}".format(self._device.heater_output)
+    
+    def get_heater_output_350(self, chan):
+        # Device is 1-indexed
+        chan -= 1
+        return "{:.2f}".format(self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].heater_output)
 
     def get_heater_range(self):
         return self._device.heater_range
+
+    def get_heater_range_350(self, chan):
+        # Device is 1-indexed
+        chan -= 1
+        return self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].heater_range
 
     def set_heater_range(self, val):
         if not 0 <= val <= 5:
             raise ValueError("Heater range must be 0-5")
         self._device.heater_range = val
+    
+    def set_heater_range_350(self, chan, val):
+        # Device is 1-indexed
+        chan -= 1
+        if not 0 <= val <= 5:
+            raise ValueError("Heater range must be 0-5")
+        self._device.channels[_CONTROL_CHANNEL_TO_INDICES[chan]].heater_range = val
 
     def get_excitation_a(self):
         return self._device.excitationa

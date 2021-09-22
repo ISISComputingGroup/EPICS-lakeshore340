@@ -260,7 +260,7 @@ record(ao, "$(P)SIM:$(CHAN):TEMP:MAX"){}
 record(ai, "$(P)$(CHAN):OUTPUT") {
     field(DESC, "Heater output")
     field(DTYP, "stream")
-    field(INP, "@Lakeshore350.proto getOutput($CTRL_LOOP) $(PORT)")
+    field(INP, "@Lakeshore350.proto getOutput($(CTRL_LOOP)) $(PORT)")
     field(SCAN, "1 second")
     field(EGU, "%")
     field(PREC, "2")

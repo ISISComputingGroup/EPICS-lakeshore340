@@ -23,19 +23,11 @@ class SimulatedLakeshore340(StateMachineDevice):
         """
         Initialize all of the device's attributes.
         """
-
         self.channels = {k:SimulatedControlChannel() for k in ["A", "B", "C", "D"]}
 
-        self.tset_a = 0
-        self.tset_b = 0 
-        self.tset_c = 0
-        self.test_d = 0 
-
-        self.p, self.i, self.d = 0, 0, 0
-
+        # For 340 we set these via the backdoor, which is near impossible with the channels dict, so leave in here 
         self.pid_mode = 1
         self.loop_on = True
-
         self.max_temp = 0
         self.heater_output = 0
         self.heater_range = 0
