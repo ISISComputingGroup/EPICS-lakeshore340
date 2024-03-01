@@ -20,14 +20,11 @@ runner_SRCS += lakeshore340excitations.c lakeshore340excitationsTests.cpp
 GTESTS += runner
 endif
 
-Lakeshore340_DBD += asyn.dbd
-Lakeshore340_DBD += aSubFunctions.dbd
-
 Lakeshore340_SRCS += lakeshore340excitations.c
 
-Lakeshore340_LIBS += $(EPICS_BASE_IOC_LIBS)
 Lakeshore340_LIBS += asyn utilities
 Lakeshore340_LIBS += asubFunctions
+Lakeshore340_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 #=======================================
 include $(TOP)/configure/RULES

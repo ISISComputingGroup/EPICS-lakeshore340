@@ -425,13 +425,13 @@ record(mbbo, "$(P)EXCITATIONA:SP") {
 
 record(mbbo, "$(P)SIM:EXCITATIONA"){}
 
-record(waveform, "$(P)THRESHOLDS:FILE")
+record(lsi, "$(P)THRESHOLDS:FILE")
 {
    field(SCAN, "Passive")
-   field(FTVL, "CHAR")
-   field(DESC, "Thresholds file") # VAL is set from dbpf in st-common.cmd
-   field(NELM, "200")
-   field(FLNK, "$(P)THRESHOLDS:_CALC")
+   field(DESC, "Thresholds file")
+   field(SIZV, "200")
+   field(INP, {const:"$(EXCITATION_THRESHOLD_DIR_AND_FILE=)"})
+   field(FLNK, "$(P)THRESHOLDS:_CALC.PROC")
 }
 
 record(aSub, "$(P)THRESHOLDS:_CALC") {
@@ -440,7 +440,7 @@ record(aSub, "$(P)THRESHOLDS:_CALC") {
 
     # Inputs
     # Thresholds file
-    field(INPA, "$(P)THRESHOLDS:FILE")
+    field(INPA, "$(P)THRESHOLDS:FILE.VAL$")
     field(FTA,  "CHAR")
     field(NOA,  "200")
     # Temperature Setpoint
