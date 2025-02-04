@@ -1,4 +1,7 @@
 Terminator = CR LF;
+ReadTimeout = 2000;
+WriteTimeout = 2000;
+
 
 getTempA {
   out "KRDG? 0";
@@ -51,6 +54,7 @@ getRdgD {
 
 setP {
   out "PID 1,%f,%(\$1I)f,%(\$1D)d";
+  wait 500;
   out "PID? 1";
   in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
 }
@@ -62,6 +66,7 @@ getP {
 
 setI {
   out "PID 1,%(\$1P)f,%f,%(\$1D)d";
+  wait 500;
   out "PID? 1";
   in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
 }
@@ -73,6 +78,7 @@ getI {
 
 setD {
   out "PID 1,%(\$1P)f,%(\$1I)f,%d";
+  wait 500;
   out "PID? 1";
   in "%(\$1P)f,%(\$1I)f,%(\$1D)d";
 }
